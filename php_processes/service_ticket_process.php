@@ -32,6 +32,13 @@ if (!mysqli_query($db, $query3))
 }
 
 
+//for swal ticket number display
+$query4 = "SELECT ticket_number from ticket_t where ticket_id = '$latest_id'";
+
+$result = mysqli_query($db, $query4);
+$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+
+echo json_encode($row['ticket_number']);
 //else{
 //   // header("Location: ..\home.php");
 // }

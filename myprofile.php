@@ -1,8 +1,17 @@
 <?php
   session_start();
+
   if(!isset($_SESSION['requestor_id'])){
     header('location: index.php');
   }
+
+  // LETTER AVATAR
+  // require('letter-avatar/letter-avatar-master/src/LetterAvatar.php');
+  // require('vendor/autoload.php');
+  // use YoHang88\LetterAvatar\LetterAvatar;
+  // $avatar = new LetterAvatar($_SESSION['last_name'] . $_SESSION['first_name']);
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -126,7 +135,7 @@
            <li><a class="dropdown-button btn-invert" href="#!" data-activates="dropdown2" data-beloworigin="true">New Ticket<i class="tiny material-icons" id="add-ticket">add</i></a></li>
 
             <li><a href="sass.html"><i class="small material-icons">notifications_none</i></a></li>
-            <li><a class="dropdown-button" href="#!" data-activates="dropdown" data-beloworigin="true"><i class="medium material-icons" style="margin-right: 10px">person_pin</i><?php echo $_SESSION['first_name'] . ' '. $_SESSION['last_name'] ?><i class="right tiny material-icons" id="profile">keyboard_arrow_down</i></a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown" data-beloworigin="true"><?php echo $_SESSION['first_name'] . ' '. $_SESSION['last_name'] ?><i class="right tiny material-icons" id="profile">keyboard_arrow_down</i></a></li>
          </ul>
        </div>
     </nav>
@@ -177,7 +186,7 @@
           <div class="main-container">
             <div class="main-body">
               <input class="waves-effect waves-light submit" id="request-form" name="submit" type="submit" value="Edit">
-
+              <!-- <img src="<?php echo $avatar ?>"></img> -->
               <h4 class="body-header"><b><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></b></h4>
               <h6 class="body-header" id="line2"><b><?php echo $_SESSION['user_type'] ?></b></h6>
 

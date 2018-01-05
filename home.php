@@ -20,7 +20,6 @@
     <script>
 
     $(document).ready(function(){
-
         var myEvent = window.attachEvent || window.addEventListener;
         var chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload'; /// make IE7, IE8 compatable
 
@@ -31,8 +30,7 @@
         });
 
         //on document load, hide access and service request forms
-        $(".accesst").hide();
-        $(".servicet").hide();
+        // code in CSS display:none
 
         //if service request from dropdown menu is clicked..
         $('.service').click(function(){
@@ -49,10 +47,10 @@
         });
 
         //initialize select dropdown for materialize [DO NOT REMOVE]
-          $('select').material_select();
+        $('select').material_select();
 
        //character counter for ticket Title
-          $('input#input_text, textarea#textarea1').characterCounter();
+        $('input#input_text, textarea#textarea1').characterCounter();
 
       //to prevent user from typing ticket title when charcount reaches 40
           var max = 40;
@@ -73,7 +71,7 @@
           //initialize modals
           $('.modal').modal();
 
-
+          //initialize datepicker of materializecss
           $('.datepicker').pickadate({
              selectMonths: false, // Creates a dropdown to control month
              selectYears: false, // Creates a dropdown of 15 years to control year,
@@ -84,34 +82,47 @@
              closeOnSelect: false // Close upon selecting a date,
            });
 
+           //set current date to field
+            var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+            $('#date_prepared').val(today);
+            $('#date_prepared2').val(today);
 
-          var now = new Date();
-          var day = ("0" + now.getDate()).slice(-2);
-          var month = ("0" + (now.getMonth() + 1)).slice(-2);
-          var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-          $('#date_prepared').val(today);
-          $('#date_prepared2').val(today);
+            //sweet alert
+            $("#service").submit(function(e) {
+              e.preventDefault();
+              $.ajax({
+                url: 'php_processes/service_ticket_process.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(data)
+                 {
+                     ticketNo= JSON.parse(data);
+                     swal("Ticket Submitted!", "Your ticket number is: " +ticketNo , "success");
+                 }
+              })
+            });
 
-          //sweet alert
-          $("#service").submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-              url: 'php_processes/service_ticket_process.php',
-              type: 'POST',
-              data: $(this).serialize()
-            })
-            swal("Ticket Submitted!", "Your ticket number is: ", "success");
-          });
+            $("#access").submit(function(e) {
+              e.preventDefault();
+              $.ajax({
+                url: 'php_processes/access_ticket_process.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(data)
+                 {
+                     ticketNo= JSON.parse(data);
+                     swal("Ticket Submitted!", "Your ticket number is: " +ticketNo , "success");
+                 }
+              })
+            });
 
-          $("#access").submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-              url: 'php_processes/access_ticket_process.php',
-              type: 'POST',
-              data: $(this).serialize()
-            })
-            swal("Ticket Submitted!", "Your ticket number is: ", "success");
-          });
+         //  $(".cancel").click(function(){
+         //   window.history.back();
+         //   return false;
+         // });
         });
     </script>
   </head>
@@ -167,6 +178,8 @@
               <?php
             }
             ?>
+
+            <li><a class="link" href="dashboard.php"><i class="tiny material-icons">help</i>Help and Support</a></li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>
