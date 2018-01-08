@@ -9,8 +9,7 @@ $dp = mysqli_real_escape_string($db, $_POST['dp']);
 $rc = mysqli_real_escape_string($db, $_POST['rc_no']);
 $names = mysqli_real_escape_string($db, $_POST['names']);
 $access_request = mysqli_real_escape_string($db, $_POST['access_request']);
-$expiry_date = mysqli_real_escape_string($db, $_POST['expiry_date']);
-// $request_details = mysqli_real_escape_string($db, $_POST['request_details']);
+// $expiry_date = mysqli_real_escape_string($db, $_POST['expiry_date']);
 $approver = mysqli_real_escape_string($db, $_POST['approver']);
 $checker = mysqli_real_escape_string($db, $_POST['checker']);
 
@@ -31,7 +30,7 @@ if (!mysqli_query($db, $query2))
   die('Error' . mysqli_error($db));
 }
 
-$query3 = "INSERT INTO user_access_ticket_t (ticket_id, ticket_number, company, dept_proj, rc_no, name, access_requested, expiry_date, approver, checker) VALUES('$latest_id', (SELECT ticket_number from ticket_t WHERE ticket_id = '$latest_id'), '$company', '$dp', '$rc', '$names', '$access_request', '$expiry_date', '$approver', '$checker')";
+$query3 = "INSERT INTO user_access_ticket_t (ticket_id, ticket_number, company, dept_proj, rc_no, name, access_requested,  approver, checker) VALUES('$latest_id', (SELECT ticket_number from ticket_t WHERE ticket_id = '$latest_id'), '$company', '$dp', '$rc', '$names', '$access_request', '$approver', '$checker')";
 
 if (!mysqli_query($db, $query3))
 {
@@ -45,6 +44,13 @@ if (!mysqli_query($db, $query3))
 //   echo "ERROR: could not execute $query." . mysqli_error($db);
 //
 // }
+
+$query4 = "SELECT ticket_number from ticket_t where ticket_id = '$latest_id'";
+
+$result = mysqli_query($db, $query4);
+$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+
+echo json_encode($row['ticket_number']);
 
 mysqli_close($db);
 ?>

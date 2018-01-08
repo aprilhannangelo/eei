@@ -13,8 +13,10 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
-     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script>
@@ -42,6 +44,35 @@
           $('select').material_select();
           $(".clickable-row").click(function() {
               window.location = $(this).data("href");
+          });
+
+          //sweet alert
+          $("#service").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+              url: 'php_processes/service_ticket_process.php',
+              type: 'POST',
+              data: $(this).serialize(),
+              success: function(data)
+               {
+                   ticketNo= JSON.parse(data);
+                   swal("Ticket Submitted!", "Your ticket number is: " +ticketNo , "success");
+               }
+            })
+          });
+
+          $("#access").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+              url: 'php_processes/access_ticket_process.php',
+              type: 'POST',
+              data: $(this).serialize(),
+              success: function(data)
+               {
+                   ticketNo= JSON.parse(data);
+                   swal("Ticket Submitted!", "Your ticket number is: " +ticketNo , "success");
+               }
+            })
           });
       });
     </script>
@@ -112,20 +143,18 @@
               <div class="table-header">
                 <span class="table-title"><b>All Tickets</b></span>
                 <div class="actions">
-                  <a href="#add_users" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
                   <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
                 </div>
               </div>
               <table id="datatable" class="striped">
                 <thead>
                   <tr>
-                    <th> </th>
+                    <th></th>
                     <th>Ticket No.</th>
+                    <th>Status</th>
                     <th>Notes</th>
                     <th>Date Created</th>
-                    <th>Status</th>
                     <th>Remarks</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -138,16 +167,16 @@
 
                   $result = mysqli_query($db,$query);?>
 
-                  <tr>
+
                      <?php while($row = mysqli_fetch_assoc($result)){
                        switch($row['ticket_type'])
                         {
                             // assumes 'type' column is one of CAR | TRUCK | SUV
                             case("Service"):
-                                $class = 'ticket_cat_regular';
+                                $class = 'ticket_cat_t';
                                 break;
-                           case("User Access"):
-                               $class = 'ticket_cat_regular';
+                            case("User Access"):
+                               $class = 'ticket_cat_a';
                                break;
                         }
                        ?>
@@ -155,16 +184,13 @@
                         <tr class='clickable-row' data-href="details.php?id=<?php echo $row['ticket_id']?>">
                           <td id="type"><span class="<?php echo $class?>"> <?php echo $row['ticket_type'][0]?></span><p style="margin-top:25px;margin-bottom:-5px;font-size:8pt;"><?php echo $row['severity_level']?></p></td>
                           <td> <?php echo $row['ticket_number']?>  </td>
+                          <td> <?php echo $row['ticket_status']?>  </td>
                           <td> <?php echo $row['ticket_title']?>   </td>
                           <td> <?php echo $row['date_prepared']?>  </td>
-                          <td> <?php echo $row['ticket_status']?>  </td>
                           <td> <?php echo $row['remarks'] ?>       </td>
-                          <td> </td>
                         </tr>
                       <?php
                     }?>
-                     </tr>
-
                 </tbody>
               </table>
             </div>
@@ -299,7 +325,7 @@
             </form>
 
           <!--  ********************************* access ticket **************************************** -->
-        <form method="post" id="access">
+        <form method="POST" name="access" id="access">
           <div id="access" class="accesst">
             <div class="search-bar"><h5 class="body-header"><b>New Access Request</b></h5></div>
               <hr>
@@ -354,11 +380,7 @@
                           </div>
                         </div>
                       </div>
-
-
                   </div>
-
-
                   <div class="col s12 m12 l6" id="form">
                     <h6>Ticket Details</h6>
                     <div class="row" id="request-form-row">
@@ -396,8 +418,6 @@
                           </div>
                         </div>
                       </div>
-
-
                     <div class="row">
                       <div class="col s12">
                         <input class="waves-effect waves-light submit" id="request-form" name="submit" type="submit" value="Submit">

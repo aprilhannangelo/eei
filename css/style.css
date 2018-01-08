@@ -1,3 +1,32 @@
+
+
+span.card-title{
+  text-align: center;
+  font-weight: 800;
+  margin-bottom: 50px;
+}
+
+.card-content.white-text{
+  margin-bottom: 35px;
+}
+.login-logo {
+  /* float: left; */
+  /* align-items: center;
+  /* width: 100px;
+  height: 100px; */
+  /* width: 45px;
+  height: 50px; */
+  /* display: block; */
+  /* padding-top: 7px;
+  margin-left: -0.75rem;
+  margin-right: 10px; */
+  width: 60px;
+  left: 36%;
+  position: relative;
+
+}
+
+
 #login-page{
   color: black;
   background: url("../img/bg.png") no-repeat center center fixed;
@@ -5,8 +34,21 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  padding-top: 150px;
+  padding-top: 5%;
 
+}
+
+@media only screen and (max-width: 600px){
+  #login-page{
+    padding-top: 15%;
+  }
+}
+
+div#login{
+  background-color: transparent;
+  box-shadow: none;
+  position: relative;
+    margin: 0 auto
 }
 
 /* #login-container{
@@ -21,11 +63,6 @@
   margin-top: 50px;
 } */
 
-.inline-title {
-    display: -webkit-inline-box;
-    color: white;
-    margin-bottom: 25px;
-  }
 
 div#login-form {
     margin: 0 auto;
@@ -73,14 +110,14 @@ p#login{
   text-transform: none;
 }
 
-.login_logo{
+/* .login_logo{
   width: 45px;
   height: 50px;
   display: block;
   padding-top: 7px;
   margin-left: -0.75rem;
   margin-right: 10px;
-}
+} */
 
 #login-button:hover{
   background-color: #4b75ff;
@@ -126,8 +163,9 @@ header, main, footer {
         height: 100%;
         background-color: #263238;
       }
+
 .name{
-  padding-left: 90px;
+  padding-left: 80px;
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -136,7 +174,9 @@ header, main, footer {
   width: 45px;
   display: block;
   padding-top: 7px;
+  margin-left: -1rem;
 }
+
 .col s12 m12 l2{
   background-color: #263238;
 
@@ -616,7 +656,10 @@ div#request-form-row3 {
     margin-bottom: 25px;
     margin-top: 45px;
 }
-
+div#request-form-row4 {
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
 
 input#request-form{
   padding: 8px 20px 8px 20px;
@@ -724,7 +767,7 @@ font-size: 13px;
     bottom: 0;
   }
 input{
-  float: right;
+  /* float: right; */
 }
 
 a.button.tooltipped{
@@ -865,13 +908,29 @@ div#right-card2{
 }
 
 td.first {
-    width: 30%;
+    width: 20%;
     color: #a0a5b7;
 }
 
 td.deet{
   font-weight: 400;
 }
+
+div.material-table table th:first-child, div.material-table table td:first-child{
+  width: 10%;
+}
+div.material-table table th:nth-child(2), div.material-table table td:nth-child(2){
+  width: 10%;
+}
+
+div.material-table table th:nth-child(3), div.material-table table td:nth-child(3){
+  width: 10%;
+}
+
+div.material-table table th:nth-child(4), div.material-table table td:nth-child(4){
+  width: 30%;
+}
+
 
 #ticket-details td {
     padding: 5px 5px;

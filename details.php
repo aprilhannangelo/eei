@@ -56,6 +56,37 @@
           window.location = $(this).data("href");
       });
 
+      //sweet alert
+      $("#service").submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: 'php_processes/service_ticket_process.php',
+          type: 'POST',
+          data: $(this).serialize(),
+          success: function(data)
+           {
+               ticketNo= JSON.parse(data);
+               swal("Ticket Submitted!", "Your ticket number is: " +ticketNo , "success");
+           }
+        })
+      });
+
+      $("#access").submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: 'php_processes/access_ticket_process.php',
+          type: 'POST',
+          data: $(this).serialize(),
+          success: function(data)
+           {
+               ticketNo= JSON.parse(data);
+               swal("Ticket Submitted!", "Your ticket number is: " +ticketNo , "success");
+           }
+        })
+      });
+
+
+
 
 });
     </script>
