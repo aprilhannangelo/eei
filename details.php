@@ -108,7 +108,7 @@
     <!-- Dropdown Structure -->
     <ul id="dropdown" class="dropdown-content collection">
         <li><a href="myprofile.php">My Profile</a></li>
-        <li><a href="logout.php">Log out</a></li>
+        <li><a href="php_processes/logout.php">Log out</a></li>
     </ul>
     <!-- Dropdown Structure -->
     <ul id="dropdown2" class="dropdown-content collection">
@@ -175,11 +175,14 @@
                     <div class="card-panel">
                       <span class="black-text">
                         <?php
-                        $db = mysqli_connect("localhost", "root", "", "eei_db");
+                          $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-                          $query = "SELECT t.ticket_title, s.request_details, DATE_FORMAT(date_prepared, '%W %M %e %Y') as date_prepared, CONCAT(r.first_name, ' ', r.last_name) As requestor FROM ticket_t t INNER JOIN requestor_t r LEFT JOIN service_ticket_t s USING (ticket_id, ticket_number) WHERE ticket_id = '".$_GET['id']."'";
+                          $query = "SELECT t.ticket_title, s.request_details, DATE_FORMAT(date_prepared, '%W %M %e %Y') as date_prepared, CONCAT(r.first_name, ' ', r.last_name) As requestor FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) left join service_ticket_t s on (s.ticket_id=t.ticket_id) WHERE s.ticket_id = '".$_GET['id']."'";
+                          $query2 = "SELECT t.ticket_title, u.access_requested, u.dept_proj,DATE_FORMAT(date_prepared, '%W %M %e %Y') as date_prepared, CONCAT(r.first_name, ' ', r.last_name) As requestor , r.user_type as user_type FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) left join user_access_ticket_t u on (u.ticket_id=t.ticket_id) WHERE u.ticket_id = '".$_GET['id']."'";
 
                           $result = mysqli_query($db,$query);
+                          $result2= mysqli_query($db,$query2);
+
 
                           while($row = mysqli_fetch_assoc($result)){
 
@@ -187,6 +190,13 @@
                                   "<br><p id=\"requestor_details\">" . "<style=\"color:blue\">" . "<span class=\"name-in-ticket\">" . $row['requestor'] . "</span>" . "<span class=\"request_date\">" . " reported on " . $row['date_prepared'] . "</p>" .
                                   "<p id=\"details\">" . $row['request_details'] . "</p>";
                          };
+                         while($row = mysqli_fetch_assoc($result2)){
+
+                            echo "<h4><b>" . $row['ticket_title'] .
+                                 "<br><p id=\"requestor_details\">" . "<style=\"color:blue\">" . "<span class=\"name-in-ticket\">" . $row['requestor'] . "</span>" . "<span class=\"request_date\">" . " reported on " . $row['date_prepared'] . "</p>" .
+                                 "<p id=\"details\">" . $row['access_requested'] . "</p>";
+                        };
+
                         ?>
                     </div>
                   </div>
@@ -248,15 +258,22 @@
                             <?php
                               $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-                                $query = "SELECT CONCAT(r.first_name, ' ', r.last_name) As requestor, r.user_type FROM ticket_t t INNER JOIN requestor_t r LEFT JOIN service_ticket_t s USING (ticket_id, ticket_number) WHERE ticket_id = '".$_GET['id']."'";
+                              $query = "SELECT t.ticket_title, s.request_details, DATE_FORMAT(date_prepared, '%W %M %e %Y') as date_prepared, CONCAT(r.first_name, ' ', r.last_name) As requestor , r.user_type as user_type FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) left join service_ticket_t s on (s.ticket_id=t.ticket_id) WHERE t.ticket_id = '".$_GET['id']."'";
+                                       $query2 = "SELECT u.access_requested, u.dept_proj,DATE_FORMAT(date_prepared, '%W %M %e %Y') as date_prepared, CONCAT(r.first_name, ' ', r.last_name) As requestor , r.user_type as user_type FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) left join user_access_ticket_t u on (u.ticket_id=t.ticket_id) WHERE t.ticket_id = '".$_GET['id']."'";
 
-                                $result = mysqli_query($db,$query);
+                               $result = mysqli_query($db,$query);
+                               $result2= mysqli_query($db,$query2);
 
-                                while($row = mysqli_fetch_assoc($result)){
-                                  echo "<tr class=\"tagent_info\"><td class=\"name-in-ticket\">" . $row['requestor'] ."</td>" .
-                                  "<tr class=\"tagent_info\"><td class=\"request_date\">" . $row['user_type'] . "</tr>";
-                               };
-                              ?>
+                               while($row = mysqli_fetch_assoc($result)){
+                                 echo "<tr class=\"tagent_info\"><td class=\"name-in-ticket\">" . $row['requestor'] ."</td>" .
+                                 "<tr class=\"tagent_info\"><td class=\"request_date\">" . $row['user_type'] . "</tr>";
+                              };
+
+                              while($row2 = mysqli_fetch_assoc($result2)){
+                                echo "<tr class=\"tagent_info\"><td class=\"name-in-ticket\">" . $row['requestor'] ."</td>" .
+                                "<tr class=\"tagent_info\"><td class=\"request_date\">" . $row['user_type'] . "</tr>";
+                             };
+                             ?>
                             </tbody>
                           </table>
                     </div>

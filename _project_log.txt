@@ -48,3 +48,10 @@ Jan 4
 2. style data from db
 - source: https://stackoverflow.com/questions/13210552/how-to-style-php-echo-output-with-span
 - source: https://www.sitepoint.com/community/t/assigning-styles-in-php-mysql-table/1511/6
+
+
+Jan 5-9
+1. Added details.php
+2. Added dashboard.php
+3. Fixed the mysql query for details.php
+4. Fixed swal by displaying ticket number (ty donna)

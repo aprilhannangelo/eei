@@ -128,36 +128,36 @@
   <body>
     <!-- Navbar goes here -->
     <header class="page-topbar">
-    <nav  class="color">
-       <div class="nav-wrapper">
-         <a href="#!" class="brand-logo"><img class="company_logo" src="img/eei.png"></a><span class="name">EEI Corporation Service Desk</span>
-         <ul class="right hide-on-med-and-down">
-           <li><a class="dropdown-button btn-invert" href="#!" data-activates="dropdown2" data-beloworigin="true">New Ticket<i class="tiny material-icons" id="add-ticket">add</i></a></li>
+      <nav  class="color">
+         <div class="nav-wrapper">
+           <a href="#!" class="brand-logo"><img class="company_logo" src="img/eei.png"></a><span class="name">EEI Corporation Service Desk</span>
+           <ul class="right hide-on-med-and-down">
+              <li><a class="dropdown-button btn-invert" data-activates="dropdown2" data-beloworigin="true">New Ticket<i class="tiny material-icons" id="add-ticket">add</i></a></li>
+              <li><a href="#!"><i class="small material-icons">notifications_none</i></a></li>
+              <li><a class="dropdown-button" href="#!" data-activates="dropdown" data-beloworigin="true"><i class="medium material-icons" style="margin-right: 10px">person_pin</i><?php echo $_SESSION['first_name'] . ' '. $_SESSION['last_name'] ?><i class="right tiny material-icons" id="profile">keyboard_arrow_down</i></a>
+              </li>
+           </ul>
+         </div>
+      </nav>
+      <!-- Dropdown Structure -->
+      <ul id="dropdown" class="dropdown-content collection">
+          <li><a href="myprofile.php">My Profile</a></li>
+          <li><a href="php_processes/logout.php">Log out</a></li>
+      </ul>
+      <!-- Dropdown Structure -->
+      <ul id="dropdown2" class="dropdown-content collection">
+          <li><a class="service"> Service Request</a></li>
+      		<li><a class="access">Access Request</a></li>
+      </ul>
+    </header>
 
-            <li><a href="sass.html"><i class="small material-icons">notifications_none</i></a></li>
-            <li><a class="dropdown-button" href="#!" data-activates="dropdown" data-beloworigin="true"><?php echo $_SESSION['first_name'] . ' '. $_SESSION['last_name'] ?><i class="right tiny material-icons" id="profile">keyboard_arrow_down</i></a></li>
-         </ul>
-       </div>
-    </nav>
-    <!-- Dropdown Structure -->
-    <ul id="dropdown" class="dropdown-content collection">
-        <li><a href="myprofile.php">My Profile</a></li>
-        <li><a href="logout.php">Log out</a></li>
-    </ul>
-    <!-- Dropdown Structure -->
-    <ul id="dropdown2" class="dropdown-content collection">
-        <li><a class="service"> Service Request</a></li>
-    		<li><a class="access">Access Request</a></li>
-    </ul>
-  </header>
-
-  <!-- Page Layout here -->
+    <!-- Side Navigation -->
     <div class="col s12 m12 l2">
         <ul id="slide-out" class="side-nav fixed">
-          <li><a href="home.php"><i class="tiny material-icons">home</i>Home</a></li>
+          <li><a class="waves-effect" href="home.php"><i class="tiny material-icons">home</i>Home</a></li>
             <ul class="collapsible collapsible-accordion">
               <li>
-                <a class="collapsible-header" href="#!"><i class="tiny material-icons">view_list</i>View Tickets</a>
+                <a class="collapsible-header waves-effect" href="#!"><i class="tiny material-icons">view_list</i>View Tickets</a>
                 <div class="collapsible-body">
                   <ul>
                     <li class="collapsible"><a href="tickets.php">All Tickets</a></li>
@@ -167,18 +167,20 @@
                 </div>
               </li>
             </ul>
-            <?php
-              if($_SESSION['user_type'] == 'Administrator'){
-            ?>
-              <li><a href="#!"><i class="tiny material-icons">markunread</i>View Requests</a></li>
-              <li><a href="#!"><i class="tiny material-icons">settings</i>Manage Users</a></li>
-              <li><a href="dashboard.php"><i class="tiny material-icons">dashboard</i>Dashboard</a></li>
               <?php
-            }
-            ?>
+                if($_SESSION['user_type'] == 'Administrator'){
+              ?>
+                <li><a href="#!" class="waves-effect" ><i class="tiny material-icons">markunread</i>View Requests</a></li>
+                <li><a href="#!" class="waves-effect" ><i class="tiny material-icons">settings</i>Manage Users</a></li>
+                <li><a href="dashboard.php" class="waves-effect"><i class="tiny material-icons">dashboard</i>Dashboard</a></li>
+                <?php
+              }
+              ?>
+            <li><a class="link" href="#!"><i class="tiny material-icons">help</i>Help and Support</a></li>
         </ul>
-        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons waves-effect">menu</i></a>
       </div>
+      <!-- End of Side Navigation -->
 
       <!--body-->
       <div class="col s12 m12 l10">

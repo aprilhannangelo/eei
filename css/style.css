@@ -152,6 +152,8 @@ header, main, footer {
       header, main, footer {
         padding-left: 0;
         color: black;
+        margin-bottom: 30px;
+
       }
     }
 
@@ -177,10 +179,9 @@ header, main, footer {
   margin-left: -1rem;
 }
 
-.col s12 m12 l2{
-  background-color: #263238;
-
-}
+/* div#main-section {
+    padding-left: 50px;
+} */
 .side-nav.fixed{
   margin-top: 56px;
   position: absolute;
@@ -1013,5 +1014,67 @@ i#tagent{
 
 td.name-in-ticket{
   padding-left: 10px;
+}
 
+@media only screen and (min-width: 993px) {
+  a.button-collapse2 {
+    display: none;
+  }
+}
+
+a.button-collapse2 {
+  float: right;
+  position: relative;
+  z-index: 1;
+  height: 56px;
+  margin: 0 18px;
+}
+
+
+a.button-collapse2 i {
+  height: 56px;
+  line-height: 56px;
+}
+
+
+div#db-panel{
+  width: 195px;
+}
+
+span#db-panel-label{
+  text-align: center;
+  font-weight: bold;
+}
+
+/*
+.tabs .tab a {
+   color: #4b75ff;
+}
+
+.tabs .tab a.active{
+  background-color: #4b75ff;
+  border-radius: 3px;
+  color: #ffffff;
+}
+
+.tabs .tab a:hover{
+  color: #4b75ff;
+  border-bottom: 3px solid #4b75ff;
+}
+
+.tabs .indicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #4b75ff;
+    will-change: left, right;
+  }*/
+
+div#dashboard.container .row{
+  margin: 0px;
+}
+
+
+.card-panel.col.s12.m4.l4{
+  padding: 24px;
 }
