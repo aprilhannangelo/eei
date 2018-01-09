@@ -55,3 +55,6 @@ Jan 5-9
 2. Added dashboard.php
 3. Fixed the mysql query for details.php
 4. Fixed swal by displaying ticket number (ty donna)
+
+Change password during first login:
+https://stackoverflow.com/questions/8893332/changing-user-password-in-php-and-mysql

@@ -18,6 +18,8 @@
   <!--Import style.css-->
   <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <!-- Other JQuery versions -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 

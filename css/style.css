@@ -245,7 +245,7 @@ i#profile-icon{
 
 .input-field input[type=search] {
     display: block;
-    width: 95%;
+    width: 92%;
     line-height: inherit;
     border: 2px solid;
     padding-left: 50px;
@@ -1046,9 +1046,25 @@ span#db-panel-label{
   font-weight: bold;
 }
 
-/*
-.tabs .tab a {
+span#db-panel-label-overdue, h3.db-panel-label-overdue{
+  color:#ff003e;
+  font-weight: bold;
+}
+
+/* .tabs .tab a.active {
+    background-color: #4b75ff;
+    color: white;
+    border-radius: 3px;
+} */
+
+/* .row.no-margin{
+margin-left: 0;
+margin-right: 0;
+} */
+
+/* .tabs .tab a {
    color: #4b75ff;
+   background-color: #fbfbfb;
 }
 
 .tabs .tab a.active{
@@ -1068,7 +1084,7 @@ span#db-panel-label{
     height: 2px;
     background-color: #4b75ff;
     will-change: left, right;
-  }*/
+  } */
 
 div#dashboard.container .row{
   margin: 0px;

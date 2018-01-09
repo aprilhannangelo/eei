@@ -19,6 +19,8 @@
 
     <!-- Other JQuery versions -->
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 
     <!-- JQuery to hide forms on load (for mobile)-->
     <script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.js"></script>
@@ -35,8 +37,8 @@
 
         //on document load, hide access and service request forms
         // code in CSS display:none
-        // $(".accesst").hide();
-        // $(".servicet").hide();
+        $(".accesst").hide();
+        $(".servicet").hide();
 
         //if service request from dropdown menu is clicked..
         $('.service').click(function(){
@@ -193,13 +195,13 @@
           <div class="main-container">
             <div class="main-body">
               <div class="search-bar"><h5 class="body-header">Hi, <b><?php echo $_SESSION['first_name'] ?></b>! How can we help you today?</h5>
-                <form>
-                  <div class="input-field">
-                    <input id="search" placeholder="Search knowledge base" type="search" required>
-                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                    <i class="material-icons">close</i>
-                  </div>
-                </form>
+                <div class="input-field col s12 m12 l10">
+                    <form>
+                      <input id="search" placeholder="Search knowledge base" type="search" required>
+                      <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                      <i class="material-icons">close</i>
+                  </form>
+                </div>
               </div>
               <br>
               <div class="search-bar"><h5 class="body-header">Knowledge Base</h5>
