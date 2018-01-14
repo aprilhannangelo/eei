@@ -58,3 +58,6 @@ Jan 5-9
 
 Change password during first login:
 https://stackoverflow.com/questions/8893332/changing-user-password-in-php-and-mysql
+
+Jan 14
+1. Merged donna's files whoo
