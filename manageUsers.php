@@ -8,19 +8,25 @@
 ?>
 <!DOCTYPE html>
 <html>
-  <head>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
-     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<head>
+  <!-- ************** FONT ************* -->
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <script>
+  <!-- ************** STYLESHEETS ************* -->
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+  <!--Import style.css-->
+  <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
+
+  <!-- Other JQuery versions -->
+  <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+  <!-- JQuery to hide forms on load (for mobile)-->
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.js"></script>
+  <script>
 
     $(document).ready(function(){
             var myEvent = window.attachEvent || window.addEventListener;
@@ -607,15 +613,24 @@
               </form><!-- End of User Access Request Form -->
 
 
-              <!-- ************** IMPORT JAVASCRIPT ************* -->
-              <!--JQuery version of Materialize-->
-              <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-              <!--Import materialize.js-->
-              <script type="text/javascript" src="js/materialize.min.js"></script>
-              <!--Import javascript.js for DataTables script-->
-              <script type="text/javascript" src="js/javascript.js"></script>
-              <!--Import for Sweet Alert-->
-              <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+                      <!-- IMPORT JS SCRIPTS HERE -->
+                      <!--Import jQuery before materialize.js. Do not change arrangement -->
+
+                      <!--JQuery version of Materialize-->
+                      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+                      <!--Import materialize.js-->
+                      <script type="text/javascript" src="js/materialize.min.js"></script>
+
+                      <!-- Import javascript for DataTables  -->
+                      <script src='https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js'></script>
+                      <script type="text/javascript" src="js/javascript.js"></script>
+
+                      <!--Import for Sweet Alert-->
+                      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+                      <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
 
     </body>
 </html>
