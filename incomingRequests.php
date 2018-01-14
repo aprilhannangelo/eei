@@ -629,7 +629,7 @@
           </form><!-- End of User Access Request Form -->
 
 
-          <!-- IMPORT JS SCRIPTS HERE -->
+          <!-- IMPORT JAVASCRIPT HERE-->
           <!--Import jQuery before materialize.js. Do not change arrangement -->
 
           <!--JQuery version of Materialize-->
