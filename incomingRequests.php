@@ -331,29 +331,33 @@
                         $result = mysqli_query($db,$query);?>
 
 
-                           <?php while($row = mysqli_fetch_assoc($result)){
-                             switch($row['ticket_type'])
-                              {
-                                  // assumes 'type' column is one of CAR | TRUCK | SUV
-                                  case("Service"):
-                                      $class = 'ticket_cat_t';
-                                      break;
-                                  case("User Access"):
-                                     $class = 'ticket_cat_a';
-                                     break;
-                              }
-                             ?>
+                        <?php while($row = mysqli_fetch_assoc($result)){
+                          switch($row['ticket_category'])
+                           {
+                               // assumes 'type' column is one of CAR | TRUCK | SUV
+                               case("Technicals"):
+                                   $class = 'ticket_cat_t';
+                                   break;
+                               case("Access"):
+                                  $class = 'ticket_cat_a';
+                                  break;
+                               case("Network"):
+                                 $class = 'ticket_cat_n';
+                                 break;
+                               case(""):
+                                 $class = 'ticket_cat_blank';
+                                 break;
+                           }
+                          ?>
 
-                             <tbody>
-
-                              <tr class='clickable-row' data-href="details.php?id=<?php echo $row['ticket_id']?>">
-                                <td id="type"><span class="<?php echo $class?>"> <?php echo $row['ticket_type'][0]?></span><p style="margin-top:25px;margin-bottom:-5px;font-size:8pt;"><?php echo $row['severity_level']?></p></td>
-                                <td> <?php echo $row['ticket_number']?>  </td>
-                                <td> <?php echo $row['ticket_status']?>  </td>
-                                <td> <?php echo $row['dept_proj']?>   </td>
-                                <td> <?php echo $row['access_requested']?>  </td>
-                                <td> <?php echo $row['date_prepared'] ?>       </td>
-                              </tr>
+                           <tr class='clickable-row' data-href="details.php?id=<?php echo $row['ticket_id']?>">
+                             <td id="type"><span class="<?php echo $class?>"> <?php echo $row['ticket_category'][0]?></span><p style="margin-top:25px;margin-bottom:-5px;font-size:8pt;"><?php echo $row['severity_level']?></p></td>
+                             <td> <?php echo $row['ticket_number']?>  </td>
+                             <td> <?php echo $row['ticket_status']?>  </td>
+                             <td> <?php echo $row['ticket_title']?>   </td>
+                             <td> <?php echo $row['date_prepared']?>  </td>
+                             <td> <?php echo $row['remarks'] ?>       </td>
+                           </tr>
                             <?php
                           }}
                           elseif ($_SESSION['user_type']=='Technicals Group Manager') {?>
@@ -427,29 +431,33 @@
                                 $result = mysqli_query($db,$query);?>
 
 
-                                   <?php while($row = mysqli_fetch_assoc($result)){
-                                     switch($row['ticket_type'])
-                                      {
-                                          // assumes 'type' column is one of CAR | TRUCK | SUV
-                                          case("Service"):
-                                              $class = 'ticket_cat_t';
-                                              break;
-                                          case("User Access"):
-                                             $class = 'ticket_cat_a';
-                                             break;
-                                      }
-                                     ?>
+                                <?php while($row = mysqli_fetch_assoc($result)){
+                                  switch($row['ticket_category'])
+                                   {
+                                       // assumes 'type' column is one of CAR | TRUCK | SUV
+                                       case("Technicals"):
+                                           $class = 'ticket_cat_t';
+                                           break;
+                                       case("Access"):
+                                          $class = 'ticket_cat_a';
+                                          break;
+                                       case("Network"):
+                                         $class = 'ticket_cat_n';
+                                         break;
+                                       case(""):
+                                         $class = 'ticket_cat_blank';
+                                         break;
+                                   }
+                                  ?>
 
-                                     <tbody>
-
-                                      <tr class='clickable-row' data-href="details.php?id=<?php echo $row['ticket_id']?>">
-                                        <td id="type"><span class="<?php echo $class?>"> <?php echo $row['ticket_type'][0]?></span><p style="margin-top:25px;margin-bottom:-5px;font-size:8pt;"><?php echo $row['severity_level']?></p></td>
-                                        <td> <?php echo $row['ticket_number']?>  </td>
-                                        <td> <?php echo $row['ticket_status']?>  </td>
-                                        <td> <?php echo $row['dept_proj']?>   </td>
-                                        <td> <?php echo $row['access_requested']?>  </td>
-                                        <td> <?php echo $row['date_prepared'] ?>       </td>
-                                      </tr>
+                                   <tr class='clickable-row' data-href="details.php?id=<?php echo $row['ticket_id']?>">
+                                     <td id="type"><span class="<?php echo $class?>"> <?php echo $row['ticket_category'][0]?></span><p style="margin-top:25px;margin-bottom:-5px;font-size:8pt;"><?php echo $row['severity_level']?></p></td>
+                                     <td> <?php echo $row['ticket_number']?>  </td>
+                                     <td> <?php echo $row['ticket_status']?>  </td>
+                                     <td> <?php echo $row['ticket_title']?>   </td>
+                                     <td> <?php echo $row['date_prepared']?>  </td>
+                                     <td> <?php echo $row['remarks'] ?>       </td>
+                                   </tr>
                                     <?php
                                   }}?>
 
@@ -619,7 +627,7 @@
                   </div>
             </div>
           </form><!-- End of User Access Request Form -->
-          
+
           <!-- ************** IMPORT JAVASCRIPT ************* -->
           <!--JQuery version of Materialize-->
           <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
