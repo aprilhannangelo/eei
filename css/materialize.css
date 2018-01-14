@@ -7033,7 +7033,7 @@ select {
 
 .select-wrapper {
   position: relative;
-  width: 50%;
+  width: 90%;
 }
 
 .select-wrapper.valid + label,

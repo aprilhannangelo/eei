@@ -18,15 +18,37 @@
   <!--Import style.css-->
   <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
 
+  <!-- Other JQuery versions -->
+  <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Other JQuery versions -->
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
   <!-- JQuery to hide forms on load (for mobile)-->
   <script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.js"></script>
   <script>
   $(document).ready(function(){
+    //live searching for user access request form
+        $('.search-box input[type="text"]').on("keyup input", function(){
+            /* Get input value on change */
+            var inputVal = $(this).val();
+            var resultDropdown = $(this).siblings(".result");
+
+            if(inputVal.length){
+                $.get("php_processes/search.php", {term: inputVal}).done(function(data){
+                    // Display the returned data in browser
+                    resultDropdown.html(data);
+                });
+            } else{
+                resultDropdown.empty();
+            }
+        });
+
+        // Set search input value on click of result item
+        $(document).on("click", ".result p", function(){
+            $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+            $(this).parent(".result").empty();
+        });
+
       // var myEvent = window.attachEvent || window.addEventListener;
       // var chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload'; /// make IE7, IE8 compatable
       //
@@ -57,7 +79,9 @@
 
       //initialize select dropdown for materialize [DO NOT REMOVE]
       $('select').material_select();
-
+      $(".clickable-row").click(function() {
+    window.location = $(this).data("href");
+});
      //character counter for ticket Title
       $('input#input_text, textarea#textarea1').characterCounter();
 
@@ -106,11 +130,22 @@
           data: $(this).serialize(),
           success: function(data)
            {
-               ticketNo= JSON.parse(data);
-               swal("Ticket Submitted!", "Your ticket number is: " +ticketNo , "success");
+             ticketNo= JSON.parse(data);
+             swal({
+                title: "Ticket Submitted!",
+                text: "Your ticket number is: " +ticketNo,
+                type: "success",
+                icon: "success"
+            }).then(function(){
+              window.location="tickets.php";
+              $(".main-body").show();
+              $(".servicet").hide();
+              $(".accesst").hide();
+            });
            }
-        })
-      });
+          })
+       });
+
 
       $("#access").submit(function(e) {
       e.preventDefault();
@@ -120,11 +155,21 @@
         data: $(this).serialize(),
         success: function(data)
          {
-             ticketNo= JSON.parse(data);
-               swal("Ticket Submitted!", "Your ticket number is: " +ticketNo , "success");
+           ticketNo= JSON.parse(data);
+           swal({
+              title: "Ticket Submitted!",
+              text: "Your ticket number is: " +ticketNo,
+              type: "success",
+              icon: "success"
+          }).then(function(){
+            window.location="tickets.php";
+            $(".servicet").hide();
+            $(".accesst").hide();
+
+          });
          }
-      })
-    });
+        })
+     });
        //  $(".cancel").click(function(){
        //   window.history.back();
        //   return false;
@@ -151,7 +196,7 @@
       <!-- Dropdown Structure -->
       <ul id="dropdown" class="dropdown-content collection">
           <li><a href="myprofile.php">My Profile</a></li>
-          <li><a href="logout.php">Log out</a></li>
+          <li><a href="php_processes/logout.php">Log out</a></li>
       </ul>
       <!-- Dropdown Structure -->
       <ul id="dropdown2" class="dropdown-content collection">
@@ -166,7 +211,7 @@
           <li><a class="waves-effect" href="home.php"><i class="tiny material-icons">home</i>Home</a></li>
             <ul class="collapsible collapsible-accordion">
               <li>
-                <a class="collapsible-header waves-effect" href="#!"><i class="tiny material-icons">view_list</i>View Tickets</a>
+                <a class="collapsible-header waves-effect" href="#!"><i class="tiny material-icons">view_list</i>My Tickets</a>
                 <div class="collapsible-body">
                   <ul>
                     <li class="collapsible"><a href="tickets.php">All Tickets</a></li>
@@ -176,18 +221,87 @@
                 </div>
               </li>
             </ul>
+            <?php
+            if($_SESSION['user_type'] == 'Administrator'){
+          ?>
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header" href="#!"><i class="tiny material-icons">view_list</i>Tickets For Review</a>
+              <div class="collapsible-body">
+                <ul>
+                  <li class="collapsible"><a href="incomingRequests.php">Incoming Tickets</a></li>
+                  <li class="collapsible"><a href="#!">All Tickets</a></li>
+                  <li class="collapsible"><a href="#!">Resolved Tickets</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+                <li><a href="dashboard.php"><i class="tiny material-icons">dashboard</i>Dashboard</a></li>
+            <?php
+          }
+          ?>
+          <?php
+            if($_SESSION['user_type'] == 'Requestor'){
+          ?>
+            <ul class="collapsible collapsible-accordion">
+              <li>
+                <a class="collapsible-header" href="#!"><i class="tiny material-icons">view_list</i>Requests for Review</a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li class="collapsible"><a href="incomingRequests.php">Incoming Requests</a></li>
+                    <li class="collapsible"><a href="#!">Approved Requests</a></li>
+                    <li class="collapsible"><a href="#!">Checked Requests</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+            <?php
+          }
+          ?>
+          <?php
+            if($_SESSION['user_type'] == 'Technicals Group Manager'){
+          ?>
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header" href="#!"><i class="tiny material-icons">view_list</i>Technicals Tickets</a>
+              <div class="collapsible-body">
+                <ul>
+                  <li class="collapsible"><a href="incomingRequests.php">Incoming Technicals Tickets</a></li>
+                  <li class="collapsible"><a href="#!">All Technicals Tickets</a></li>
+                  <li class="collapsible"><a href="#!">Resolved Technicals Tickets</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+            <?php
+          }
+          ?>
+           <?php
+            if($_SESSION['user_type'] == 'Access Group Manager'){
+
+            ?>
+            <ul class="collapsible collapsible-accordion">
+              <li>
+                <a class="collapsible-header" href="#!"><i class="tiny material-icons">view_list</i>Access Tickets</a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li class="collapsible"><a href="incomingRequests.php">Incoming Tickets</a></li>
+                    <li class="collapsible"><a href="#!">All Access Tickets</a></li>
+                    <li class="collapsible"><a href="#!">Resolved Access Tickets</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+              <li><a href="manageUsers.php"><i class="tiny material-icons">settings</i>Manage Users</a></li>
+              <li><a href="dashboard.php"><i class="tiny material-icons">dashboard</i>Dashboard</a></li>
               <?php
-                if($_SESSION['user_type'] == 'Administrator'){
-              ?>
-                <li><a href="#!" class="waves-effect" ><i class="tiny material-icons">markunread</i>View Requests</a></li>
-                <li><a href="#!" class="waves-effect" ><i class="tiny material-icons">settings</i>Manage Users</a></li>
-                <li><a href="dashboard.php" class="waves-effect"><i class="tiny material-icons">dashboard</i>Dashboard</a></li>
-                <?php
-              }
-              ?>
-            <li><a class="link" href="#!"><i class="tiny material-icons">help</i>Help and Support</a></li>
-        </ul>
-        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons waves-effect">menu</i></a>
+            }
+            ?>
+
+
+          <li><a class="link" href="dashboard.php"><i class="tiny material-icons">help</i>Help and Support</a></li>
+      </ul>
+      <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
       </div>
       <!-- End of Side Navigation -->
 
@@ -220,27 +334,33 @@
                   <?php
                   $db = mysqli_connect("localhost", "root", "", "eei_db");
                   //Query for the way the table is shown in hr-index.php
-                  $query = "SELECT * FROM ticket_t LEFT JOIN service_ticket_t USING (ticket_id, ticket_number) LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number)";
+                  $query = "SELECT * FROM ticket_t LEFT JOIN service_ticket_t USING (ticket_id, ticket_number) LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number) WHERE ticket_t.requestor_id = '".$_SESSION['requestor_id']."'";
 
 
                   $result = mysqli_query($db,$query);?>
 
 
                      <?php while($row = mysqli_fetch_assoc($result)){
-                       switch($row['ticket_type'])
+                       switch($row['ticket_category'])
                         {
                             // assumes 'type' column is one of CAR | TRUCK | SUV
-                            case("Service"):
+                            case("Technicals"):
                                 $class = 'ticket_cat_t';
                                 break;
-                            case("User Access"):
+                            case("Access"):
                                $class = 'ticket_cat_a';
                                break;
+                            case("Network"):
+                              $class = 'ticket_cat_n';
+                              break;
+                            case(""):
+                              $class = 'ticket_cat_blank';
+                              break;
                         }
                        ?>
 
                         <tr class='clickable-row' data-href="details.php?id=<?php echo $row['ticket_id']?>">
-                          <td id="type"><span class="<?php echo $class?>"> <?php echo $row['ticket_type'][0]?></span><p style="margin-top:25px;margin-bottom:-5px;font-size:8pt;"><?php echo $row['severity_level']?></p></td>
+                          <td id="type"><span class="<?php echo $class?>"> <?php echo $row['ticket_category'][0]?></span><p style="margin-top:25px;margin-bottom:-5px;font-size:8pt;"><?php echo $row['severity_level']?></p></td>
                           <td> <?php echo $row['ticket_number']?>  </td>
                           <td> <?php echo $row['ticket_status']?>  </td>
                           <td> <?php echo $row['ticket_title']?>   </td>
@@ -300,87 +420,6 @@
                           <input class="waves-effect waves-light cancel" id="request-form" name="submit" type="submit" value="Cancel">
                         </div>
                       </div>
-                      <!-- <div class="col s12 m12 l6" id="form">
-                            <h6>Ticket Details</h6>
-                              <div class="row" id="request-form-row2">
-                                <div class="input-field col s12">
-                                  <?php
-                                    $db = mysqli_connect("localhost", "root", "", "eei_db");
-                                  ?>
-                                  <form method="post" action="service_ticket_process.php">
-                                    <?php
-                                      echo "<select>";
-                                      echo "<option value=\"\" disabled selected>Select</option>";
-                                      $get_ticket_type = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'ticket_type'");
-                                      $row = mysqli_fetch_array($get_ticket_type);
-                                      $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
-                                      foreach($enumList as $value)
-                                      echo "<option value=\"$value\">$value</option>";
-                                      echo "</select>";
-                                    ?>
-                                  </form>
-                                  <label>Ticket Type</label>
-                                </div>
-                              </div>
-                              <div class="row" id="request-form-row">
-                                <label>Ticket Category</label>
-
-                                <div class="input-field col s12">
-                                  <?php
-                                    $db = mysqli_connect("localhost", "root", "", "eei_db");
-                                  ?>
-                                  <form method="post" action="service_ticket_process.php">
-                                    <?php
-                                      echo "<select>";
-                                      echo "<option value=\"\" disabled selected>Select</option>";
-                                      $get_ticket_category = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'ticket_category'");
-                                      $row = mysqli_fetch_array($get_ticket_category);
-                                      $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
-                                      foreach($enumList as $value)
-                                      echo "<option value=\"$value\">$value</option>";
-                                      echo "</select>";
-                                    ?>
-                                  </form>
-                                </div>
-                              </div>
-                              <div class="row" id="request-form-row">
-                              <label>Ticket Severity</label>
-                                <div class="input-field col s12">
-                                  <?php
-                                    $db = mysqli_connect("localhost", "root", "", "eei_db");
-                                  ?>
-                                  <form method="post" action="service_ticket_process.php">
-                                    <?php
-                                      echo "<select>";
-                                      echo "<option value=\"\" disabled selected>Select:</option>";
-                                      $get_severity_level = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'severity_level'");
-                                      $row = mysqli_fetch_array($get_severity_level);
-                                      $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
-                                      foreach($enumList as $value)
-                                      echo "<option value=\"$value\">$value</option>";
-                                      echo "</select>";
-                                    ?>
-                                  </form>
-                                </div>
-                              </div>
-                              <div class="input-field" id="request-form-row">
-                                <input placeholder="" id="last_name" type="text" class="validate">
-                                <label for="last_name">Remarks</label>
-                              </div>
-                              <div class="row" id="request-form-row">
-                                <div class="col s12">
-                                  <i class="tiny material-icons" id="form">event</i>Resolution Date:
-                                  <div class="input-field inline" id="request-form">
-                                    <input type="date" class="datepicker">
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
-                          <div class="row">
-                            <input class="waves-effect waves-light submit" id="request-form" name="submit" type="submit" value="Submit">
-                            <input class="waves-effect waves-light clear" name="clear" type="submit" value="Clear">
-                            <input class="waves-effect waves-light cancel" name="submit" type="submit" value="Cancel">
-                          </div> -->
                   </div>
                 </div>
             </div>
@@ -460,21 +499,24 @@
                         </div>
                       </div>
                       <div class="row" id="request-form-row2">
-                        <div class="col s12">
-                          <div class="input-field" id="request-form">
-                            <input placeholder=" " name="approver" type="text" class="validate">
-                            <label for="approver">Approver</label>
+                            <div class="col s12">
+                              <div class="input-field search-box" id="request-form">
+                                <input placeholder=" " name="approver" autocomplete="off" type="text" class="validate">
+                                <div class="result" id="result1"></div>
+                                <label for="approver">Approver</label>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <div class="row" id="request-form-row3">
-                        <div class="col s12">
-                          <div class="input-field" id="request-form">
-                            <input placeholder=" " name="checker" type="text" class="validate">
-                            <label for="Checekr">Checker</label>
+
+                          <div class="row" id="request-form-row3">
+                            <div class="col s12">
+                              <div class="input-field search-box" id="request-form">
+                                <input placeholder=" " name="checker" autocomplete="off" type="text" class="validate">
+                                <div class="result" id='result2'></div>
+                                  <label for="approver">Checker</label>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
                       <div class="row" id="request-form-row3">
                        <div class="col s12">
                          <div class="input-field" id="request-form">
@@ -489,130 +531,19 @@
                           <input class="waves-effect waves-light cancel" id="request-form" name="submit" type="submit" value="Cancel">
                         </div>
                       </div>
-                      <!-- <div class="row" id="request-form-row">
-                          <label>Ticket Type</label>
-                          <div class="input-field col s12">
-                              <?php
-                                $db = mysqli_connect("localhost", "root", "", "eei_db");
-                              ?>
-                              <form method="post" action="service_ticket_process.php">
-                                <?php
-                                  echo "<select>";
-                                  echo "<option value=\"\" disabled selected>Select</option>";
-                                  $get_ticket_type = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'ticket_type'");
-                                  $row = mysqli_fetch_array($get_ticket_type);
-                                  $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
-                                  foreach($enumList as $value)
-                                  echo "<option value=\"$value\">$value</option>";
-                                  echo "</select>";
-                                ?>
-                              </form>
-                          </div>
-                        </div>
-
-                        <div class="row" id="request-form-row2">
-                          <label>Ticket Category</label>
-                            <div class="input-field col s12">
-                              <?php
-                                $db = mysqli_connect("localhost", "root", "", "eei_db");
-                              ?>
-                              <form method="post" action="service_ticket_process.php">
-                                <?php
-                                  echo "<select>";
-                                  echo "<option value=\"\" disabled selected>Select</option>";
-                                  $get_ticket_category = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'ticket_category'");
-                                  $row = mysqli_fetch_array($get_ticket_category);
-                                  $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
-                                  foreach($enumList as $value)
-                                  echo "<option value=\"$value\">$value</option>";
-                                  echo "</select>";
-                                ?>
-                              </form>
-                            </div>
-                        </div>
-
-                        <div class="row" id="request-form-row2">
-                          <label>Ticket Severity</label>
-                          <div class="input-field col s12">
-                            <?php
-                              $db = mysqli_connect("localhost", "root", "", "eei_db");
-                            ?>
-                            <form method="post" action="service_ticket_process.php">
-                              <?php
-                                echo "<select>";
-                                echo "<option value=\"\" disabled selected>Select:</option>";
-                                $get_severity_level = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'severity_level'");
-                                $row = mysqli_fetch_array($get_severity_level);
-                                $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
-                                foreach($enumList as $value)
-                                echo "<option value=\"$value\">$value</option>";
-                                echo "</select>";
-                              ?>
-                            </form>
-                          </div>
-                        </div>
-
-                        <div class="input-field" id="request-form-row2">
-                          <input id="last_name" type="text" class="validate">
-                          <label for="last_name">Remarks</label>
-                        </div>
-
-                        <div class="input-field" id="request-form-row3">
-                          <div class="col s12">
-                            <div class="input-field" id="request-form">
-                              <input type="text" class="datepicker"  id="expiry_date" name="expiry_date" placeholder="">
-                              <label for="expiry_date">Expiry Date (YYYY/MM/DD)</label>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row" id="request-form-row2">
-                          <div class="col s12 m12 l6">
-                            <div class="input-field inline" id="request-form">
-                              <i class="tiny material-icons" id="form">event</i>Resolution Date:
-                              <input type="date" class="datepicker">
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="input-field" id="request-form-row2">
-                          <div class="col s12 m12 l6">
-                            <p>
-                              <input type="checkbox" class="filled-in" id="filled-in-box approver" name="approver"/>
-                              <label for="filled-in-box approver">Approved?</label>
-                            </p>
-                          </div>
-                          <div class="col s12 m12 l6">
-                            <p>
-                              <input type="checkbox" class="filled-in" id="filled-in-box checker" name="checker" />
-                              <label for="filled-in-box checker">Checked?</label>
-                            </p>
-                          </div>
-                        </div> -->
                     </div>
                   </div>
             </div>
           </form><!-- End of User Access Request Form -->
-                </div>
-              </div>
-          </div>
 
-        <!-- IMPORT JS SCRIPTS HERE -->
-        <!--Import jQuery before materialize.js. Do not change arrangement -->
-
-        <!--JQuery version of Materialize-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-        <!--Import materialize.js-->
-        <script type="text/javascript" src="js/materialize.min.js"></script>
-
-        <!-- Import javascript for DataTables  -->
-        <script src='https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js'></script>
-        <script type="text/javascript" src="js/javascript.js"></script>
-
-        <!--Import for Sweet Alert-->
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-        <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+          <!-- ************** IMPORT JAVASCRIPT ************* -->
+          <!--JQuery version of Materialize-->
+          <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+          <!--Import materialize.js-->
+          <script type="text/javascript" src="js/materialize.min.js"></script>
+          <!--Import javascript.js for DataTables script-->
+          <script type="text/javascript" src="js/javascript.js"></script>
+          <!--Import for Sweet Alert-->
+          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
     </body>
 </html>

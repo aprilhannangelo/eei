@@ -30,7 +30,17 @@ if (!mysqli_query($db, $query2))
   die('Error' . mysqli_error($db));
 }
 
-$query3 = "INSERT INTO user_access_ticket_t (ticket_id, ticket_number, company, dept_proj, rc_no, name, access_requested,  approver, checker) VALUES('$latest_id', (SELECT ticket_number from ticket_t WHERE ticket_id = '$latest_id'), '$company', '$dp', '$rc', '$names', '$access_request', '$approver', '$checker')";
+$query5= "SELECT requestor_id from requestor_t WHERE CONCAT(first_name,' ',last_name)='$approver'";
+$result2=mysqli_query($db, $query5);
+$row2 = mysqli_fetch_array($result2,MYSQLI_ASSOC);
+$approverID= $row2['requestor_id'];
+
+$query6= "SELECT requestor_id from requestor_t WHERE CONCAT(first_name,' ',last_name)='$checker'";
+$result3=mysqli_query($db, $query6);
+$row3= mysqli_fetch_array($result3,MYSQLI_ASSOC);
+$checkerID= $row3['requestor_id'];
+
+$query3 = "INSERT INTO user_access_ticket_t (ticket_id, ticket_number, company, dept_proj, rc_no, name, access_requested,  approver, checker) VALUES('$latest_id', (SELECT ticket_number from ticket_t WHERE ticket_id = '$latest_id'), '$company', '$dp', '$rc', '$names', '$access_request', '$approverID', '$checkerID')";
 
 if (!mysqli_query($db, $query3))
 {

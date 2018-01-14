@@ -36,6 +36,27 @@
   <script>
 
     $(document).ready(function(){
+      //live searching for user access request form
+
+      $('.search-box input[type="text"]').on("keyup input", function(){
+          /* Get input value on change */
+          var inputVal = $(this).val();
+          var resultDropdown = $(this).siblings(".result");
+          if(inputVal.length){
+              $.get("php_processes/search.php", {term: inputVal}).done(function(data){
+                  // Display the returned data in browser
+                  resultDropdown.html(data);
+              });
+          } else{
+              resultDropdown.empty();
+          }
+      });
+
+      // Set search input value on click of result item
+      $(document).on("click", ".result p", function(){
+          $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+          $(this).parent(".result").empty();
+      });
 
         var myEvent = window.attachEvent || window.addEventListener;
         var chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload'; /// make IE7, IE8 compatable
@@ -45,8 +66,6 @@
             (e || window.event).returnValue = confirmationMessage;
             return confirmationMessage;
         });
-        //live searching for user access request form
-
         $('.search-box input[type="text"]').on("keyup input", function(){
             /* Get input value on change */
             var inputVal = $(this).val();
@@ -66,8 +85,6 @@
             $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
             $(this).parent(".result").empty();
         });
-
-
         //on document load, hide access and service request forms
         $(".accesst").hide();
         $(".servicet").hide();
@@ -130,51 +147,35 @@
           $('#date_prepared').val(today);
           $('#date_prepared2').val(today);
 
-          // sweet alert
+          //sweet alert
           $("#service").submit(function(e) {
             e.preventDefault();
             $.ajax({
               url: 'php_processes/service_ticket_process.php',
               type: 'POST',
-              data: $(this).serialize(),
-              success: function(data)
-               {
-                 ticketNo= JSON.parse(data);
-                 swal({
-                    title: "Ticket Submitted!",
-                    text: "Your ticket number is: " +ticketNo,
-                    type: "success",
-                    icon: "success"
-                }).then(function(){
-                  window.location="tickets.php";
-                  $(".main-body").show();
-                });
-               }
-              })
-           });
-
+              data: $(this).serialize()
+            })
+            swal("Ticket Submitted!", "Your ticket number is: ", "success");
+          });
 
           $("#access").submit(function(e) {
-          e.preventDefault();
-          $.ajax({
-            url: 'php_processes/access_ticket_process.php',
-            type: 'POST',
-            data: $(this).serialize(),
-            success: function(data)
-             {
-               ticketNo= JSON.parse(data);
-               swal({
-                  title: "Ticket Submitted!",
-                  text: "Your ticket number is: " +ticketNo,
-                  type: "success",
-                  icon: "success"
-              }).then(function(){
-                window.location="tickets.php";
-
-              });
-             }
+            e.preventDefault();
+            $.ajax({
+              url: 'php_processes/access_ticket_process.php',
+              type: 'POST',
+              data: $(this).serialize()
             })
-         });
+            swal("Ticket Submitted!", "Your ticket number is: ", "success");
+          });
+
+          $('.edit-button').click(function () {
+            for (i = 0; i < 5; i++) {
+              document.getElementsByClassName('pflBody')[i].contentEditable = true;
+            }
+
+            });
+
+
         });
     </script>
   </head>
@@ -182,36 +183,36 @@
   <body>
     <!-- Navbar goes here -->
     <header class="page-topbar">
-      <nav  class="color">
-         <div class="nav-wrapper">
-           <a href="#!" class="brand-logo"><img class="company_logo" src="img/eei.png"></a><span class="name">EEI Corporation Service Desk</span>
-           <ul class="right hide-on-med-and-down">
-              <li><a class="dropdown-button btn-invert" data-activates="dropdown2" data-beloworigin="true">New Ticket<i class="tiny material-icons" id="add-ticket">add</i></a></li>
-              <li><a href="#!"><i class="small material-icons">notifications_none</i></a></li>
-              <li><a class="dropdown-button" href="#!" data-activates="dropdown" data-beloworigin="true"><i class="medium material-icons" style="margin-right: 10px">person_pin</i><?php echo $_SESSION['first_name'] . ' '. $_SESSION['last_name'] ?><i class="right tiny material-icons" id="profile">keyboard_arrow_down</i></a>
-              </li>
-           </ul>
-         </div>
-      </nav>
-      <!-- Dropdown Structure -->
-      <ul id="dropdown" class="dropdown-content collection">
-          <li><a href="myprofile.php">My Profile</a></li>
-          <li><a href="php_processes/logout.php">Log out</a></li>
-      </ul>
-      <!-- Dropdown Structure -->
-      <ul id="dropdown2" class="dropdown-content collection">
-          <li><a class="service"> Service Request</a></li>
-      		<li><a class="access">Access Request</a></li>
-      </ul>
-    </header>
+    <nav  class="color">
+       <div class="nav-wrapper">
+         <a href="#!" class="brand-logo"><img class="company_logo" src="img/eei.png"></a><span class="name">EEI Corporation Service Desk</span>
+         <ul class="right hide-on-med-and-down">
+           <li><a class="dropdown-button btn-invert" href="#!" data-activates="dropdown2" data-beloworigin="true">New Ticket<i class="tiny material-icons" id="add-ticket">add</i></a></li>
 
-    <!-- Side Navigation -->
+            <li><a href="sass.html"><i class="small material-icons">notifications_none</i></a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown" data-beloworigin="true"><?php echo $_SESSION['first_name'] . ' '. $_SESSION['last_name'] ?><i class="right tiny material-icons" id="profile">keyboard_arrow_down</i></a></li>
+         </ul>
+       </div>
+    </nav>
+    <!-- Dropdown Structure -->
+    <ul id="dropdown" class="dropdown-content collection">
+        <li><a href="myprofile.php">My Profile</a></li>
+        <li><a href="logout.php">Log out</a></li>
+    </ul>
+    <!-- Dropdown Structure -->
+    <ul id="dropdown2" class="dropdown-content collection">
+        <li><a class="service"> Service Request</a></li>
+    		<li><a class="access">Access Request</a></li>
+    </ul>
+  </header>
+
+  <!-- Page Layout here -->
     <div class="col s12 m12 l2">
         <ul id="slide-out" class="side-nav fixed">
-          <li><a class="waves-effect" href="home.php"><i class="tiny material-icons">home</i>Home</a></li>
+          <li><a href="home.php"><i class="tiny material-icons">home</i>Home</a></li>
             <ul class="collapsible collapsible-accordion">
               <li>
-                <a class="collapsible-header waves-effect" href="#!"><i class="tiny material-icons">view_list</i>View My Tickets</a>
+                <a class="collapsible-header" href="#!"><i class="tiny material-icons">view_list</i>View Tickets</a>
                 <div class="collapsible-body">
                   <ul>
                     <li class="collapsible"><a href="tickets.php">All Tickets</a></li>
@@ -222,98 +223,53 @@
               </li>
             </ul>
             <?php
-            if($_SESSION['user_type'] == 'Administrator'){
-          ?>
-          <ul class="collapsible collapsible-accordion">
-            <li>
-              <a class="collapsible-header" href="#!"><i class="tiny material-icons">view_list</i>View Service Tickets</a>
-              <div class="collapsible-body">
-                <ul>
-                  <li class="collapsible"><a href="incomingRequests.php">Incoming Tickets</a></li>
-                  <li class="collapsible"><a href="#!">All Tickets</a></li>
-                  <li class="collapsible"><a href="#!">Resolved Tickets</a></li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-                <li><a href="dashboard.php"><i class="tiny material-icons">dashboard</i>Dashboard</a></li>
-            <?php
-          }
-          ?>
-          <?php
-            if($_SESSION['user_type'] == 'Requestor'){
-          ?>
-            <ul class="collapsible collapsible-accordion">
-              <li>
-                <a class="collapsible-header" href="#!"><i class="tiny material-icons">view_list</i>Requests for Review</a>
-                <div class="collapsible-body">
-                  <ul>
-                    <li class="collapsible"><a href="incomingRequests.php">Incoming Requests</a></li>
-                    <li class="collapsible"><a href="#!">Approved Requests</a></li>
-                    <li class="collapsible"><a href="#!">Checked Requests</a></li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-            <?php
-          }
-          ?>
-          <?php
-            if($_SESSION['user_type'] == 'Technicals Group Manager'){
-          ?>
-          <ul class="collapsible collapsible-accordion">
-            <li>
-              <a class="collapsible-header" href="#!"><i class="tiny material-icons">view_list</i>Technicals Tickets</a>
-              <div class="collapsible-body">
-                <ul>
-                  <li class="collapsible"><a href="incomingRequests.php">Incoming Technicals Tickets</a></li>
-                  <li class="collapsible"><a href="#!">All Technicals Tickets</a></li>
-                  <li class="collapsible"><a href="#!">Resolved Technicals Tickets</a></li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-            <?php
-          }
-          ?>
-           <?php
-            if($_SESSION['user_type'] == 'Access Group Manager'){
-
+              if($_SESSION['user_type'] == 'Administrator'){
             ?>
-            <ul class="collapsible collapsible-accordion">
-              <li>
-                <a class="collapsible-header" href="#!"><i class="tiny material-icons">view_list</i>Access Tickets</a>
-                <div class="collapsible-body">
-                  <ul>
-                    <li class="collapsible"><a href="incomingRequests.php">Incoming Tickets</a></li>
-                    <li class="collapsible"><a href="#!">All Access Tickets</a></li>
-                    <li class="collapsible"><a href="#!">Resolved Access Tickets</a></li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-              <li><a href="manageUsers.php"><i class="tiny material-icons">settings</i>Manage Users</a></li>
+              <li><a href="incomingRequests.php"><i class="tiny material-icons">markunread</i>View Requests</a></li>
               <li><a href="dashboard.php"><i class="tiny material-icons">dashboard</i>Dashboard</a></li>
               <?php
             }
-            ?>
+            ?>  <?php
+              if($_SESSION['user_type'] == 'Access Group Manager'){
 
-
-          <li><a class="link" href="dashboard.php"><i class="tiny material-icons">help</i>Help and Support</a></li>
-      </ul>
-      <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+              ?>
+                <li><a href="#!"><i class="tiny material-icons">markunread</i>View Requests</a></li>
+                <li><a href="manageUsers.php"><i class="tiny material-icons">settings</i>Manage Users</a></li>
+                <li><a href="dashboard.php"><i class="tiny material-icons">dashboard</i>Dashboard</a></li>
+                <?php
+              }
+              ?>
+            <li><a class="link" href="dashboard.php"><i class="tiny material-icons">help</i>Help and Support</a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
       </div>
-      <!-- End of Side Navigation -->
 
       <!--body-->
       <div class="col s12 m12 l10">
         <div class="wrapper">
           <div class="main-container">
             <div class="main-body">
-              <input class="waves-effect waves-light submit" id="request-form" name="submit" type="submit" value="Edit">
+              <input class="waves-effect waves-light submit edit-button" id="request-form" name="submit" type="submit" value="Edit">
               <!-- <img src="<?php echo $avatar ?>"></img> -->
-              <h4 class="body-header"><b><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></b></h4>
-              <h6 class="body-header" id="line2"><b><?php echo $_SESSION['user_type'] ?></b></h6>
+              <?php
+              $db = mysqli_connect("localhost", "root", "", "eei_db");
+              $id = $_GET["id"];
+
+              $query1 = "SELECT * from requestor_t where requestor_id = $id";
+
+              if (!mysqli_query($db, $query1))
+              {
+                die('Error' . mysqli_error($db));
+              }
+
+              $result = mysqli_query($db, $query1);
+              $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+
+              mysqli_close($db);
+               ?>
+
+              <h4 class="body-header"><b><?php echo $row['first_name'] . ' ' . $row['last_name'] ?></b></h4>
+              <h6 class="body-header" id="line2"><b><?php echo $row['user_type'] ?></b></h6>
 
               <hr>
               <br>
@@ -321,28 +277,25 @@
                 <tbody>
                   <tr>
                     <td>First Name</td>
-                    <td><?php echo $_SESSION['first_name']?></td>
+                    <td class = "pflBody" contenteditable="false"><?php echo $row['first_name']?></td>
                   </tr>
                   <tr>
                     <td>Last Name</td>
-                    <td><?php echo $_SESSION['last_name']?></td>
+                    <td class = "pflBody" contenteditable="false"><?php echo $row['last_name']?></td>
                   </tr>
                   <tr>
                     <td>Userid</td>
-                    <td><?php echo $_SESSION['userid']?></td>
+                    <td class = "pflBody" contenteditable="false"><?php echo $row['userid']?></td>
                   </tr>
                   <tr>
                     <td>E-mail Address</td>
-                    <td><?php echo $_SESSION['email_address']?></td>
+                    <td class = "pflBody" contenteditable="false"><?php echo $row['email_address']?></td>
                   </tr>
                   <tr>
                     <td>User Type</td>
-                    <td><?php echo $_SESSION['user_type']?></td>
+                    <td class = "pflBody" contenteditable="false" ><?php echo $row['user_type']?></td>
                   </tr>
-                  <tr>
-                    <td>Requestor ID</td>
-                    <td><?php echo $_SESSION['requestor_id']?></td>
-                  </tr>
+
                 </tbody>
               </table>
             </div>
@@ -509,8 +462,6 @@
               </div>
             </form><!-- End of User Access Request Form -->
 
-
-
         <!-- ************** IMPORT JAVASCRIPT ************* -->
         <!--JQuery version of Materialize-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -520,5 +471,6 @@
         <script type="text/javascript" src="js/javascript.js"></script>
         <!--Import for Sweet Alert-->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     </body>
 </html>

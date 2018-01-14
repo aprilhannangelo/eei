@@ -779,6 +779,23 @@ tr:hover a.button.tooltipped{
   visibility: visible;
 }
 
+span.ticket_cat_blank {
+  min-width: 1.7rem;
+  padding: 0 6px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 25px;
+  height: 1.7rem
+  color: #757575;
+  float: left;
+  font-weight: bolder;
+  font-size: 0.8rem;
+  color: #fff;
+  background-color: #e65a46;
+  border-radius: 20%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
 
 span.ticket_cat_t {
   min-width: 1.7rem;
@@ -829,7 +846,7 @@ span.ticket_cat_n {
   font-weight: bolder;
   font-size: 0.8rem;
   color: #fff;
-  background-color: #fbd440;
+  background-color: #4295dc;
   border-radius: 20%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -909,7 +926,7 @@ div#right-card2{
 }
 
 td.first {
-    width: 20%;
+    width: 25%;
     color: #a0a5b7;
 }
 
@@ -934,7 +951,19 @@ div.material-table table th:nth-child(4), div.material-table table td:nth-child(
 
 
 #ticket-details td {
-    padding: 5px 5px;
+    padding: 5px 0 0 5px;
+}
+
+#ticket-agent td{
+  padding: 5px 5px;
+}
+
+table#ticket-agent{
+  margin-left: 40px;
+}
+
+div#properties{
+  margin-left: 45px;
 }
 
 .sev1#sev::before {
@@ -1093,4 +1122,35 @@ div#dashboard.container .row{
 
 .card-panel.col.s12.m4.l4{
   padding: 24px;
+}
+
+/* for live search */
+/* Formatting search box */
+div.result{
+    position: absolute;
+    z-index: 999;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    overflow-y: auto;
+    height:100px;
+    border-bottom: 1px solid #CCCCCC ;
+  }
+/* Formatting result items */
+div.result p{
+    margin: 0;
+    padding: 7px 10px;
+    border: 1px solid #CCCCCC ;
+    border-top: none;
+    border-bottom: none;
+    cursor: pointer;
+    background-color: #fff;
+}
+div.result p:hover{
+    background: #f2f2f2;
+}
+
+div#tagent-info {
+    margin-top: 15px;
+    margin-left: 45px;
 }
