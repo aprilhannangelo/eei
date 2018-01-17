@@ -23,7 +23,6 @@
       <div class="main-container">
         <div class="main-body">
           <input class="waves-effect waves-light submit" id="request-form" name="submit" type="submit" value="Edit">
-          <!-- <img src="<?php echo $avatar ?>"></img> -->
           <h4 class="body-header"><b><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></b></h4>
           <h6 class="body-header" id="line2"><b><?php echo $_SESSION['user_type'] ?></b></h6>
           <hr>
