@@ -1,7 +1,9 @@
-// Initialize collapse button
+//Not datatables related but pls do not remove cos ayaw niya gumana is sa app.js ko ilagay
+  // Initialize collapse button
   $(".button-collapse").sideNav();
-  // Initialize collapsible (uncomment the line below if you use the dropdown variation)
-  //$('.collapsible').collapsible();
+  
+// ******************************************************************//
+  //datatables jquery do not remove
   (function(window, document, undefined) {
 
     var factory = function($, DataTable) {

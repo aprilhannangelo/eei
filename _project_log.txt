@@ -61,3 +61,11 @@ https://stackoverflow.com/questions/8893332/changing-user-password-in-php-and-my
 
 Jan 14
 1. Merged donna's files whoo
+
+
+Jan 16-17
+1. Added count in sidenav through blue badges
+2. Assign ticket to agent
+3. Slightly fixed other links of sidenav such as in progress, resolved links but not yet completely working data
+4. Used templates
+5. Renames javascript.js to datatables.js

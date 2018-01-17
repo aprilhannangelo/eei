@@ -15,7 +15,16 @@ if (!mysqli_query($db, $query))
   die('Error' . mysqli_error($db));
 }
 
-$errorMsg = mysqli_error($db);
+// $errorMsg = mysqli_error($db);
+
+$query2 = "UPDATE ticket_t SET ticket_status = 'Approved' WHERE ticket_id  = $ticketID";
+
+if (!mysqli_query($db, $query2))
+{
+  die('Error' . mysqli_error($db));
+}
+
+// $errorMsg = mysqli_error($db);
 
 // if(mysqli_query($db, $query1)){
 //   echo "Record added successfully.";

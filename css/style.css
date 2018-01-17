@@ -186,8 +186,12 @@ header, main, footer {
   margin-top: 56px;
   position: absolute;
   padding-top: 15px;
-  width: 250px;
+  width: 260px;
   background-color: #2c2f34;
+}
+
+ul#slide-out.side-nav.fixed{
+  width: 260px !important;
 }
 
 .side-nav li > a{
@@ -779,6 +783,15 @@ tr:hover a.button.tooltipped{
   visibility: visible;
 }
 
+span.ticket_count{
+  background-color: #4b75ff;
+    color: white;
+    min-width: 22px;
+    font-size: 10px;
+    border-radius: 10px;
+    float: right;
+    margin-right: 10px;
+}
 span.ticket_cat_blank {
   min-width: 1.7rem;
   padding: 0 6px;
@@ -938,11 +951,11 @@ div.material-table table th:first-child, div.material-table table td:first-child
   width: 10%;
 }
 div.material-table table th:nth-child(2), div.material-table table td:nth-child(2){
-  width: 10%;
+  width: 12%;
 }
 
 div.material-table table th:nth-child(3), div.material-table table td:nth-child(3){
-  width: 10%;
+  width: 15%;
 }
 
 div.material-table table th:nth-child(4), div.material-table table td:nth-child(4){
@@ -1153,4 +1166,9 @@ div.result p:hover{
 div#tagent-info {
     margin-top: 15px;
     margin-left: 45px;
+}
+
+
+.inprogress-tickets, .resolved-tickets, .pending-tickets{
+  display: none;
 }

@@ -6,10 +6,9 @@ $db = mysqli_connect("localhost", "root", "", "eei_db");
 $category = mysqli_real_escape_string($db, $_POST['category']);
 $id = mysqli_real_escape_string($db, $_POST['id']);
 $severity= mysqli_real_escape_string($db,$_POST['severity']);
-//get id of latest row inserted
 
-//UPDATE TICKET_NUMBER since form should be submitted first para may id na icoconcat
-$query = "UPDATE ticket_t SET ticket_category='$category', severity_level='$severity' WHERE ticket_id = $id";
+
+$query = "UPDATE ticket_t SET ticket_category='$category', severity_level='$severity', ticket_status='Pending' WHERE ticket_id = $id";
 if (!mysqli_query($db, $query))
 {
   die('Error' . mysqli_error($db));
@@ -28,6 +27,7 @@ $result = mysqli_query($db, $query);
 //   echo "ERROR: could not execute $query." . mysqli_error($db);
 //
 // }
+
 if ($category=='Technicals') {
     $query3 = "SELECT requestor_id from requestor_t where user_type = 'Technicals Group Manager'";
     $result = mysqli_query($db, $query3);
@@ -52,6 +52,17 @@ elseif ($category=='Network') {
   $query2 = "UPDATE ticket_t SET it_group_manager_id= '$mgrId' WHERE ticket_id = $id";
   $row2=mysqli_query($db, $query2);
 }
+
+
+//for swal Display
+// $query4 = "SELECT ticket_category, severity_level FROM ticket_t WHERE ticket_id = $id";
+//
+// $result = mysqli_query($db, $query4);
+// $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+//
+// echo json_encode($row['ticket_category']);
+// echo json_encode($row['severity_level']);
+
 
 mysqli_close($db);
 ?>
