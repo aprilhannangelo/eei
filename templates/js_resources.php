@@ -6,6 +6,8 @@
 <script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.js"></script>
 <!-- Our own js file -->
 <script type="text/javascript" src="js/app.js"></script>
+
+
 <!--Import jQuery before materialize.js. Do not change arrangement -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 

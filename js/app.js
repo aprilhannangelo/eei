@@ -36,7 +36,7 @@ $(document).ready(function(){
 
   //if service request from 'New Ticket' dropdown menu is clicked..
   $('.service').click(function(){
-    $(".main-body").hide();
+    // $(".main-body").hide();
     $(".servicet").show();
     $(".accesst").hide();
     $(".requestort").hide();
@@ -44,7 +44,7 @@ $(document).ready(function(){
 
   //if access request from 'New Ticket' dropdown menu is clicked..
   $('.access').click(function(){
-    $(".main-body").hide();
+    // $(".main-body").hide();
     $(".accesst").show();
     $(".servicet").hide();
     $(".requestort").hide();
@@ -58,7 +58,32 @@ $(document).ready(function(){
   });
 
 
-
+  //
+  // $('.all').click(function(){
+  //   $(".main-body").hide();
+  //   $(".all-tickets").show();
+  //   $(".resolved-tickets").hide();
+  //   $(".pending-tickets").hide();
+  //   $(".inprogress-tickets").hide();
+  //
+  // });
+  //
+  //
+  // $('.resolved').click(function(){
+  //   $(".main-body").hide();
+  //   $(".all-tickets").hide();
+  //   $(".inprogress-tickets").hide();
+  //   $(".resolved-tickets").show();
+  //   $(".pending-tickets").hide();
+  // });
+  //
+  // $('.pending').click(function(){
+  //   $(".main-body").hide();
+  //   $(".all-tickets").hide();
+  //   $(".inprogress-tickets").hide();
+  //   $(".resolved-tickets").hide();
+  //   $(".pending-tickets").show();
+  // });
 
  //character counter for ticket Title
   $('input#input_text, textarea#textarea1').characterCounter();
@@ -123,7 +148,6 @@ $(document).ready(function(){
        }
       })
    });
-
 
   $("#access").submit(function(e) {
   e.preventDefault();

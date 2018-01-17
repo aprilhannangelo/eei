@@ -1167,8 +1167,3 @@ div#tagent-info {
     margin-top: 15px;
     margin-left: 45px;
 }
-
-
-.inprogress-tickets, .resolved-tickets, .pending-tickets{
-  display: none;
-}

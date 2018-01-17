@@ -21,7 +21,7 @@
         <div class="wrapper">
           <div class="main-container">
             <div class="main-body">
-              <?php if($_SESSION['user_type'] == 'Administrator'){
+              <?php if($_SESSION['user_type'] == 'Administrator' OR $_SESSION['user_type'] == "Access Group Manager"){
                 include 'templates/dashboard.php';
               } else { ?>
 
