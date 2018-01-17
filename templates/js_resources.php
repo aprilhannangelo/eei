@@ -4,7 +4,8 @@
 
 <!-- JQuery to hide forms on load (for mobile)-->
 <script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.js"></script>
-
+<!-- Our own js file -->
+<script type="text/javascript" src="js/app.js"></script>
 <!--Import jQuery before materialize.js. Do not change arrangement -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -14,10 +15,6 @@
 <!-- Import script for DataTables found in tickets.php -->
 <script src='https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js'></script>
 <script type="text/javascript" src="js/datatables.js"></script>
-
-<!-- Our own js file -->
-<script type="text/javascript" src="js/app.js"></script>
-
 
 <!--Import for Sweet Alert-->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

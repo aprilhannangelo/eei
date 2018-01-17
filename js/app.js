@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
   //hide forms on load
   $(".accesst").hide();
@@ -142,7 +141,6 @@ $(document).ready(function(){
           icon: "success"
       }).then(function(){
         window.location="tickets.php";
-
       });
      }
     })
@@ -159,7 +157,6 @@ $(document).ready(function(){
         requestor_name= JSON.parse(data);
           swal("User Added!", "You have added " +requestor_name + " as a user" , "success");
       }
-
    })
  });
 
@@ -240,4 +237,5 @@ $(document).ready(function(){
    window.history.back();
    return false;
  });
+});
 });

@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <?php include 'templates/css_resources.php' ?>
+    <?php include 'templates/css_resources.php'; ?>
   </head>
 
   <body>
@@ -85,9 +85,8 @@
         </div> <!-- End of wrapper of col l10 -->
       </div>
     <!-- END OF COL l10 -->
-    <!-- ************** IMPORT JAVASCRIPT ************* -->
 
-    <?php include 'templates/js_resources.php' ?>
+    <?php include 'templates/js_resources.php'; ?>
 
 
     </body>
