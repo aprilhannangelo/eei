@@ -20,6 +20,7 @@
     <div class="col s12 m12 l10">
       <div class="wrapper">
         <div class="main-container">
+          <div class="main-body">
           <div class="material-table">
 
             <!-- DEFAULT DISPLAY: VISIBLE  -->
@@ -100,6 +101,7 @@
                   </table>
                 </div>
 
+          </div>
           </div>
 
           <!-- ****************************************************** -->

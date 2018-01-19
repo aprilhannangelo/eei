@@ -20,7 +20,8 @@
     <div class="col s12 m12 l10">
       <div class="wrapper">
         <div class="main-container">
-          <div class="material-table">
+          <div class="main-body">
+            <div class="material-table">
             <!-- DEFAULT DISPLAY: HIDDEN  -->
             <div class="resolved-tickets">
               <table id="datatable" class="striped">
@@ -82,7 +83,7 @@
               </table>
             </div>
           </div>
-
+          </div>
           <!-- ****************************************************** -->
           <!-- HIDDEN FORMS -->
           <?php include 'templates/ticketforms.php'; ?>

@@ -36,7 +36,8 @@ $(document).ready(function(){
 
   //if service request from 'New Ticket' dropdown menu is clicked..
   $('.service').click(function(){
-    // $(".main-body").hide();
+    $(".main-body").hide();
+    $("#dashboard").hide();
     $(".servicet").show();
     $(".accesst").hide();
     $(".requestort").hide();
@@ -44,7 +45,7 @@ $(document).ready(function(){
 
   //if access request from 'New Ticket' dropdown menu is clicked..
   $('.access').click(function(){
-    // $(".main-body").hide();
+    $(".main-body").hide();
     $(".accesst").show();
     $(".servicet").hide();
     $(".requestort").hide();
