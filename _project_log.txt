@@ -69,3 +69,7 @@ Jan 16-17
 3. Slightly fixed other links of sidenav such as in progress, resolved links but not yet completely working data
 4. Used templates
 5. Renames javascript.js to datatables.js
+
+
+Category sorting button switch statement:
+https://stackoverflow.com/questions/7876868/php-get-and-undefined-index

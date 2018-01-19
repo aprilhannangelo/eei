@@ -58,34 +58,6 @@ $(document).ready(function(){
     $(".requestort").show();
   });
 
-
-  //
-  // $('.all').click(function(){
-  //   $(".main-body").hide();
-  //   $(".all-tickets").show();
-  //   $(".resolved-tickets").hide();
-  //   $(".pending-tickets").hide();
-  //   $(".inprogress-tickets").hide();
-  //
-  // });
-  //
-  //
-  // $('.resolved').click(function(){
-  //   $(".main-body").hide();
-  //   $(".all-tickets").hide();
-  //   $(".inprogress-tickets").hide();
-  //   $(".resolved-tickets").show();
-  //   $(".pending-tickets").hide();
-  // });
-  //
-  // $('.pending').click(function(){
-  //   $(".main-body").hide();
-  //   $(".all-tickets").hide();
-  //   $(".inprogress-tickets").hide();
-  //   $(".resolved-tickets").hide();
-  //   $(".pending-tickets").show();
-  // });
-
  //character counter for ticket Title
   $('input#input_text, textarea#textarea1').characterCounter();
 
@@ -213,8 +185,7 @@ $(document).ready(function(){
       {
           swal("Ticket Checked", " ", "success");
       }
-   })
-   // history.back();
+     })
  });
 
  $("#approve").submit(function(e) {
@@ -262,5 +233,55 @@ $(document).ready(function(){
    window.history.back();
    return false;
  });
+//
+// $(".pending").click(function(){
+//   $(".pending-tickets").show();
+//   $(".all-tickets").hide();
+//   $(".inprogress-tickets").hide();
+//   $(".closed-tickets").hide();
+//   $(".resolved-tickets").hide();
+//
+// });
+//
+// $(".inprogress").click(function(){
+//  $(".pending-tickets").hide();
+//  $(".inprogress-tickets").show();
+//  $(".all-tickets").hide();
+//  $(".closed-tickets").hide();
+//  $(".resolved-tickets").hide();
+//
+// });
+//
+// $(".resolved").click(function(){
+//  $(".pending-tickets").hide();
+//  $(".inprogress-tickets").hide();
+//  $(".all-tickets").hide();
+//  $(".closed-tickets").hide();
+//  $(".resolved-tickets").show();
+//
+// });
+//
+// $(".closed").click(function(){
+//  $(".pending-tickets").hide();
+//  $(".inprogress-tickets").hide();
+//  $(".all-tickets").hide();
+//  $(".resolved-tickets").hide();
+//  $(".closed-tickets").show();
+//
+// });
+
+// $(".technicals").click(function(){
+//  $(".technicals-tickets").show();
+//  $(".all-tickets").hide();
+// });
+
+$(".accesstickets").click(function(){
+ $(".technicals-tickets").hide();
+ $(".network-tickets").hide();
+ $(".all-tickets").hide();
+ $(".access-tickets").show();
+
+});
+
 });
 });

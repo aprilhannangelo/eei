@@ -38,7 +38,7 @@
                   </div>
 
                   <!-- KNOWLEDGE BASE -->
-                  <div class="search-bar"><h5 class="body-header">Knowledge Base</h5>
+                  <br><div class="search-bar"><h5 class="body-header"><b>Knowledge Base</b></h5>
                     <p><i>Need help on something? Try to search on our knowledge base first for simple solutions to your problems before submitting a ticket. </i></p>
                     <ul class="collapsible collapsible-accordion">
                       <li class="faq">

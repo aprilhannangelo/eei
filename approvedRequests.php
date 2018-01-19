@@ -43,7 +43,7 @@
                       <?php
                       $id = $_SESSION['requestor_id'];
                       $query = "SELECT * FROM ticket_t LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number)
-                                WHERE (ticket_t.requestor_id = $id AND user_access_ticket_t.isApproved = true)";
+                                WHERE (user_access_ticket_t.approver = $id AND user_access_ticket_t.isApproved = true)";
 
                       $result = mysqli_query($db,$query);?>
 

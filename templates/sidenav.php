@@ -59,7 +59,7 @@
                       <?php } ?>
                   </a></li>
 
-                  <li class="collapsible"><a class="all" href="allTickets.php">Closed
+                  <li class="collapsible"><a class="all" href="closedTickets.php">Closed
                     <!-- Badge Counter -->
                     <?php
                       $db = mysqli_connect("localhost", "root", "", "eei_db");
@@ -201,8 +201,8 @@
                     $db = mysqli_connect("localhost", "root", "", "eei_db");
 
                     $id = $_SESSION['requestor_id'];
-                    $query = "SELECT COUNT(t.ticket_id) AS count FROM ticket_t t  LEFT JOIN requestor_t r ON t.requestor_id = r.requestor_id LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number) WHERE t.requestor_id = $id AND user_access_ticket_t.isApproved = true";
-
+                    $query = "SELECT COUNT(*) as count FROM ticket_t LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number)
+                              WHERE (user_access_ticket_t.approver = $id AND user_access_ticket_t.isApproved = true)";
                     $result = mysqli_query($db,$query); ?>
 
                     <?php while($row = mysqli_fetch_assoc($result)){ ?>
@@ -216,7 +216,8 @@
                     $db = mysqli_connect("localhost", "root", "", "eei_db");
 
                     $id = $_SESSION['requestor_id'];
-                    $query = "SELECT COUNT(t.ticket_id) AS count FROM ticket_t t  LEFT JOIN requestor_t r ON t.requestor_id = r.requestor_id LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number) WHERE t.requestor_id = $id AND user_access_ticket_t.isChecked = true AND user_access_ticket_t.isApproved = false";
+                    $query = "SELECT COUNT(*) AS count FROM ticket_t LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number)
+                              WHERE (user_access_ticket_t.checker = $id AND user_access_ticket_t.isChecked = true)";
 
                     $result = mysqli_query($db,$query); ?>
 

@@ -15,7 +15,6 @@ if (!mysqli_query($db, $query))
   die('Error' . mysqli_error($db));
 }
 
-$errorMsg = mysqli_error($db);
 
 // if(mysqli_query($db, $query1)){
 //   echo "Record added successfully.";

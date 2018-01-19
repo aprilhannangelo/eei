@@ -13,33 +13,59 @@
 
 <body>
   <?php include 'templates/navheader.php'; ?>
-  <?php include 'templates/sidenav.php'; ?>
 
   <!-- ****************************************************** -->
 
   <!--body-->
     <div class="col s12 m12 l10">
       <div class="wrapper">
+        <?php include 'templates/sidenav.php'; ?>
+
         <div class="main-container">
           <div class="main-body">
             <div class="col s6 m6 l12">
               <div class="col s6 m6 l4">
-                <!-- <input class="waves-effect waves-light back" id="request-form" type="submit" onclick="window.location.href='tickets.php'" value="Back"> -->
-                <?php
-                $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-                  $query = "SELECT ticket_number FROM ticket_t WHERE ticket_id = '".$_GET['id']."'";
-                  $result = mysqli_query($db,$query);
 
-                  while($row = mysqli_fetch_assoc($result)){
-                     echo "<h4><b>Ticket #" . $row['ticket_number'];
-                 };
-                ?>
-              </div>
+               </div>
+             </div>
+
 
             <div class="col s12 m12 l12">
               <div class="row">
                 <div class="col s12 m12 l7">
+                  <div class="card panel" id="detail-header">
+                  <?php
+                  $db = mysqli_connect("localhost", "root", "", "eei_db");
+
+                    $query2 = "SELECT t.ticket_number, u.isChecked, u.isApproved, u.approver as approver,u.checker as checker FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) left join user_access_ticket_t u on (u.ticket_id=t.ticket_id) WHERE t.ticket_id = '".$_GET['id']."'";
+
+                    $result2= mysqli_query($db,$query2);
+
+                    while($row = mysqli_fetch_assoc($result2)){?>
+                      <div class="header">
+
+                       <?php echo "<h5><input class=\"material-icons\" alt=\"Go back\" type=\"submit\" id=\"details-back\" value=\"arrow_back\" onclick=\"window.location.href='allTickets.php'\"><b>Ticket #" . $row['ticket_number'];
+
+                       $id = $_SESSION['requestor_id'];
+                       $ticketID =$_GET['id'];
+
+                       if ($row['approver']==$id) { ?>
+                       <form id="approve" name="approve" method="post">
+                         <input id="approve" type="submit" onclick="php_processes/approve-process.php'" value="Approve">
+                         <input  id="approve" name = "ticketID" type="hidden" value="<?php echo $ticketID?>">
+                       </form>
+
+                      <?php }
+                      elseif ($row['checker']==$id) { ?>
+                       <form id="check" name="check" method="post">
+                       <input id="check" type="submit" onclick="php_processes/check-process.php'" value="Check" />
+                         <input id="check" name = "ticketID" type="hidden" value="<?php echo $ticketID?>">
+                      </form>
+                    <?php }};?>
+                      </div>
+                    </div>
+
                   <div class="card-panel">
                     <span class="black-text">
                       <?php
@@ -54,37 +80,18 @@
 
                         while($row = mysqli_fetch_assoc($result)){
 
-                           echo "<h3><b>" . $row['ticket_title'] . "</h3>" .
-                                "<br><p id=\"requestor_details\">" . "<style=\"color:blue\">" . "<span class=\"name-in-ticket\">" . $row['requestor'] . "</span>" . "<span class=\"request_date\">" . " reported on " . $row['date_prepared'] . "</p>" .
-                                "<p id=\"details\">" . $row['request_details'] . "</p>";
+                           echo "<h4><b>" . $row['ticket_title'] . "</h4>" .
+                                "<p id=\"requestor_details\">" . "<style=\"color:blue\">" . "<span class=\"name-in-ticket\">" . $row['requestor'] . "</span>" . "<span class=\"request_date\">" . " reported on " . $row['date_prepared'] . "</p>" .
+                                "<br><p id=\"details\">" . $row['request_details'] . "</p>";
                        };
                        while($row = mysqli_fetch_assoc($result2)){
 
                           echo "<h5><b>" . $row['ticket_title'] . "</h5>" .
                                "<p id=\"requestor_details\">" . "<style=\"color:blue\">" . "<span class=\"name-in-ticket\">" . $row['requestor'] . "</span>" . "<span class=\"request_date\">" . " reported on " . $row['date_prepared'] . "</p>" .
                                "<br> <p id=\"details\">" . $row['access_requested'] . "</p>";
-                          ?>
-                     </div>
-                     <div class="approvecheck-buttons">
-                       <?php
-                         $id = $_SESSION['requestor_id'];
-                         $ticketID =$_GET['id'];
+                          }; ?>
 
-                         if ($row['approver']==$id) { ?>
-                         <form id="approve" name="approve" method="post">
-                           <input class="waves-effect waves-light back" id="request-form" type="submit" onclick="php_processes/approve-process.php'" value="Approve">
-                           <input class="waves-effect waves-light back" id="request-form" name = "ticketID" type="hidden" value="<?php echo $ticketID?>">
-                         </form>
-
-                        <?php }
-                        elseif ($row['checker']==$id) { ?>
-                         <form id="check" name="check" method="post">
-                         <input class="waves-effect waves-light back" id="request-form" type="submit" onclick="php_processes/check-process.php'" value="Check">
-                           <input class="waves-effect waves-light back" id="request-form" name = "ticketID" type="hidden" value="<?php echo $ticketID?>">
-                        </form>
-
-                  <?php }};?>
-                   </div>
+                 </div>
                  </div>
 
                 <div class="col s12 m12 l5">
@@ -95,7 +102,7 @@
                             <?php
                             $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-                              $query = "SELECT t.ticket_status, t.severity_level, t.date_required FROM ticket_t t WHERE ticket_id = '".$_GET['id']."'";
+                              $query = "SELECT t.ticket_status, t.severity_level, t.ticket_category, t.date_required FROM ticket_t t WHERE ticket_id = '".$_GET['id']."'";
 
                               $result = mysqli_query($db,$query);
 
@@ -129,7 +136,8 @@
                                 }
 
 
-                                echo "<tr><td class=\"first\">" . "Status" .  "</td><td><span class=\"badge new\">" . $row['ticket_status'] . "</span></td>" .
+                                echo "<tr><td class=\"first\">" . "Category" . "</td><td>"  . $row['ticket_category']  . "</td>" .
+                                     "<tr><td class=\"first\">" . "Status" .  "</td><td><span class=\"badge new\">" . $row['ticket_status'] . "</span></td>" .
                                      "<tr><td class=\"first\">" . "Severity" . "</td><td class=\"$class\" id=\"sev\">"  . $row['severity_level']  . "</td>" .
                                      "<tr><td class=\"first\">" . "Due on" . "</td><td class=\"deet\">" .  $row['date_required'] . "</td>";
                              };
@@ -144,14 +152,14 @@
                           <?php
                             $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-                            $query = "SELECT CONCAT(r.first_name, ' ', r.last_name) As requestor , r.user_type as user_type FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) WHERE t.ticket_id = '".$_GET['id']."'";
+                            $query = "SELECT CONCAT(r.first_name, ' ', r.last_name) As requestor , r.email_address AS email FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) WHERE t.ticket_id = '".$_GET['id']."'";
 
                              $result = mysqli_query($db,$query);
 
                              while($row = mysqli_fetch_assoc($result)){
                                echo "<div class=\"row\" id=\"tagent-info\">" .
                                       "<div class=\"name-in-ticket\">" . $row['requestor'] . "</div>" .
-                                      "<div class=\"request_date\">" . $row['user_type'] . "</div>" .
+                                      "<div class=\"request_date\">" . $row['email'] . "</div>" .
                                       "</div>";
                             };
                            ?>

@@ -441,6 +441,7 @@ div.material-table .table-header .actions {
 div.material-table .table-header .btn-flat {
     min-width: 36px;
     padding: 0 8px;
+    margin-left: 20px;
 }
 
 div.material-table .table-header input {
@@ -748,6 +749,7 @@ padding-right: 50px;
      padding: 0 0 0 300px;
      /* margin-right: 300px; */
    }
+ }
 
 i#profile {
     margin-left: 10px;
@@ -932,7 +934,6 @@ p#details{
 
 div#right-card{
   margin-left: 20px;
-  margin-top: -50px;
 }
 
 div#right-card2{
@@ -1167,4 +1168,56 @@ div.result p:hover{
 div#tagent-info {
     margin-top: 15px;
     margin-left: 45px;
+}
+/*
+.pending-tickets, .inprogress-tickets, .resolved-tickets, .closed-tickets{
+  display: none;
+} */
+
+.btn-sort {
+    box-shadow: none;
+    background-color: white;
+    border-color: #4b75ff;
+    display: inline-block;
+    cursor: pointer;
+    padding: 8px 15px 8px 15px;
+    border: 1px solid;
+    color: #4b75ff;
+    border-radius: 3px;
+    text-transform: none;
+    font-size: 12px;
+  }
+
+.technicals-tickets{
+  display: none;
+}
+
+input#details-back {
+    background: transparent;
+    border: transparent;
+    color: #bfbfbf;
+    padding-right: 10px;
+    padding-left: 10px;
+    vertical-align: bottom;
+  }
+
+form#check, form#approve{
+  display: inline;
+}
+
+input#check, input#approve {
+  padding: 8px 15px 8px 15px;
+  background-color: #21d260;
+  border-color: #21d260;
+  border-radius: 5px;
+  font-size: 14px;
+  float: right;
+  margin-right: 15px;
+  /* margin-left: 16%; */
+  border-style: none;
+  color: white;
+  }
+
+div#detail-header{
+  box-shadow: none;
 }
