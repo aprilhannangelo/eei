@@ -25,7 +25,7 @@
               <div class="resolved-tickets">
                 <table id="datatable" class="striped">
                   <div class="table-header">
-                    <span class="table-title"><b>Resolved Tickets</b></span>
+                    <span class="table-title"><b>My Resolved Tickets</b></span>
                     <div class="actions">
                       <div class="sorter">
                         <!-- Dropdown Trigger for New Ticket -->

@@ -7,7 +7,7 @@ $request_title = mysqli_real_escape_string($db, $_POST['title']);
 $request_details = mysqli_real_escape_string($db, $_POST['request_details']);
 
 //INSERT TO TICKET_T
-$query1 = "INSERT INTO ticket_t (ticket_id, ticket_title, ticket_type, date_prepared, requestor_id) VALUES(DEFAULT, '$request_title', 'Service', CURDATE(), '{$_SESSION['requestor_id']}')";
+$query1 = "INSERT INTO ticket_t (ticket_id, ticket_title, ticket_type, date_prepared, requestor_id) VALUES(DEFAULT, '$request_title', 'Service', NOW(), '{$_SESSION['requestor_id']}')";
 if (!mysqli_query($db, $query1))
 {
   die('Error' . mysqli_error($db));

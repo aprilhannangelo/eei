@@ -19,7 +19,7 @@
              <?php
              $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-               $query = "SELECT COUNT(ticket_status) AS status FROM ticket_t WHERE ticket_status='New'";
+               $query = "SELECT COUNT(ticket_status) AS status FROM ticket_t WHERE ticket_status='In Progress'";
                $result = mysqli_query($db,$query);
 
                while($row = mysqli_fetch_assoc($result)){
@@ -30,11 +30,11 @@
          </div>
          <div class="col s6 m6 l2" id="db-panel">
            <div class="card-panel grey lighten-5">
-             <span class="black-text" id="db-panel-label">New</span>
+             <span class="black-text" id="db-panel-label">In Progress</span>
              <?php
              $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-               $query = "SELECT COUNT(ticket_status) AS status FROM ticket_t WHERE ticket_status='New'";
+               $query = "SELECT COUNT(ticket_status) AS status FROM ticket_t WHERE ticket_status='In Progress'";
                $result = mysqli_query($db,$query);
 
                while($row = mysqli_fetch_assoc($result)){

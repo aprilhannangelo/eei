@@ -25,7 +25,7 @@
               <div class="inprogress-tickets">
                           <table id="datatable" class="striped">
                             <div class="table-header">
-                              <span class="table-title"><b>In Progress Tickets</b></span>
+                              <span class="table-title"><b>My In Progress Tickets</b></span>
                               <div class="actions">
                                 <div class="sorter">
                                   <!-- Dropdown Trigger for New Ticket -->

@@ -20,6 +20,7 @@
       <div class="col s12 m12 l10">
         <div class="wrapper">
           <div class="main-container">
+            <?php echo "<h5><input class=\"material-icons\" alt=\"Go back\" type=\"submit\" id=\"details-back\" value=\"arrow_back\" onclick=\"window.history.go(-1); return false;\">"?>
             <div class="main-body">
               <input class="waves-effect waves-light submit edit-button" id="request-form" name="submit" type="submit" value="Edit">
               <!-- <img src="<?php echo $avatar ?>"></img> -->

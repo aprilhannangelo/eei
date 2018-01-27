@@ -26,7 +26,7 @@
             <div class="all-tickets">
               <table id="datatable" class="striped">
                 <div class="table-header">
-                  <span class="table-title"><b>All Tickets</b></span>
+                  <span class="table-title"><b>My Tickets</b></span>
                   <div class="actions">
                     <div class="sorter">
                       <!-- Dropdown Trigger for New Ticket -->

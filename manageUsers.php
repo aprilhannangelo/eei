@@ -21,7 +21,7 @@
         <div class="wrapper">
           <div class="main-container">
             <div class="main-body">
-              <div class="material-table">
+              <div class="material-table" id="manage">
                 <div class="table-header">
                   <span class="table-title"><b>Manage Users</b></span>
                   <div class="actions">
@@ -29,7 +29,7 @@
                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
                   </div>
                 </div>
-                <table id="datatable">
+                <table id="datatable" class="manageUsers">
                   <thead>
                     <tr>
                       <th>Requestor Name</th>

@@ -1,6 +1,7 @@
 $(document).ready(function(){
   //hide forms on load
   $(".accesst").hide();
+  $(".requestort").hide();
   $(".servicet").hide();
 
   //live searching for user access request form
@@ -27,6 +28,7 @@ $(document).ready(function(){
   //initialize select dropdown for materialize [DO NOT REMOVE]
   $('select').material_select();
 
+ $('.tooltipped').tooltip({delay: 50});
   // Clickable table row
   jQuery(document).ready(function($) {
   $(".clickable-row").click(function() {
@@ -167,8 +169,40 @@ $(document).ready(function(){
      success: function()
       {
          // assignee= JSON.parse(data);
-          swal("Ticket Reviewed", " ", "success");
-          $(".main-body").show();
+         swal({
+            title: "Ticket Properties Saved!",
+            text: "",
+            type: "success",
+            icon: "success"
+        }).then(function(){
+
+          location.reload();
+          $("#ticket-properties").hide();
+
+        });
+
+      }
+   })
+   // history.back(); -- removed cos hindi lumalabas yung alert because of this.
+ });
+
+ $("#activity_log").submit(function(e) {
+   e.preventDefault();
+   $.ajax({
+     url: 'php_processes/activitylog_process.php',
+     type: 'POST',
+     data: $(this).serialize(),
+     success: function()
+      {
+         // assignee= JSON.parse(data);
+         swal({
+            title: "Activity log submitted!",
+            text: "",
+            type: "success",
+            icon: "success"
+        }).then(function(){
+          location.reload();
+        });
 
       }
    })
@@ -217,7 +251,7 @@ $(document).ready(function(){
            type: "success",
            icon: "success"
        }).then(function(){
-         window.location="incomingRequests.php";
+         window.location="review-incoming-tickets.php";
        });
       }
      })

@@ -25,7 +25,7 @@
             <div class="material-table">
               <table id="datatable" class="striped">
                 <div class="table-header">
-                  <span class="table-title"><b>Checked Requests</b></span>
+                  <span class="table-title tooltipped" data-position="right" data-delay="10" data-tooltip="Tickets I checked"><b>Checked Requests</b></span>
                   <div class="actions">
                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
                   </div>

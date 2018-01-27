@@ -11,8 +11,10 @@
   </head>
 
   <body>
+
     <?php include 'templates/navheader.php'; ?>
     <?php include 'templates/sidenav.php'; ?>
+
 
     <!-- ****************************************************** -->
 
