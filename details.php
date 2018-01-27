@@ -377,17 +377,20 @@
                                 <?php
                                 $db = mysqli_connect("localhost", "root", "", "eei_db");
                                 $result = mysqli_query($db, "SELECT a.activity_log_details, DATE_FORMAT(a.timestamp, '%M %e %Y') as timestamp, a.logger, a.activity_log_id, CONCAT(r.first_name, ' ', r.last_name) AS user, t.ticket_number FROM activity_log_t a LEFT JOIN ticket_t t ON a.ticket_no = t.ticket_number LEFT JOIN requestor_t r ON r.requestor_id = a.logger WHERE t.ticket_id = '".$_GET['id']."' ORDER BY a.activity_log_id DESC");
-                                while($row=mysqli_fetch_array($result)){
-                                  // echo "<h6>Logs</h6><br>";
-                                  if (mysqli_num_rows($result)==0) {
-                                    echo "<i>There are no activity logs for this ticket.</i>"; }
-                                     else {
-                                        echo "<div class='comments_content'>";
-                                        echo "<div class=\"row\" id=\"logs\">" .
-                                               "<div class=\"user\">" . $row['user'] . "</div>" .
-                                               "<div class=\"date_posted\">" . $row['timestamp'] . "</div>" .
-                                               "<div class=\"details\">" .  $row['activity_log_details'] . "</div>" .
-                                               "</div><hr></div>";};};
+                                $row_cnt = mysqli_num_rows($result);
+                                if($row_cnt > 0){
+                                  while($row=mysqli_fetch_array($result)){
+                                      echo "<div class='comments_content'>";
+                                      echo "<div class=\"row\" id=\"logs\">" .
+                                      "<div class=\"user\">" . $row['user'] . "</div>" .
+                                      "<div class=\"date_posted\">" . $row['timestamp'] . "</div>" .
+                                      "<div class=\"details\">" .  $row['activity_log_details'] . "</div>" .
+                                      "</div><hr></div>";
+                                  }}
+                                  else { echo "<i>There are no activity logs for this ticket.</i>";};
+
+
+
                                 ?>
                               </div>
                             </div>
