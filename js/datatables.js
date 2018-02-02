@@ -1,7 +1,7 @@
 //Not datatables related but pls do not remove cos ayaw niya gumana is sa app.js ko ilagay
   // Initialize collapse button
   $(".button-collapse").sideNav();
-  
+
 // ******************************************************************//
   //datatables jquery do not remove
   (function(window, document, undefined) {
@@ -202,6 +202,6 @@
           '<option value="-1">All</option>' +
           '</select></div>'
       },
-      bAutoWidth: false
+      bAutoWidth: false,
     });
   });

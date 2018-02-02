@@ -4,8 +4,10 @@
 <h4><b>Ticket Summary</b></h4>
 <div class="row">
   <ul class="tabs">
-   <li class="tab col s6 l6"><a href="#test-swipe-1">Status</a></li>
-   <li class="tab col s6 l6"><a href="#test-swipe-2">Type</a></li>
+   <li class="tab col s4 l4"><a href="#test-swipe-1">Status</a></li>
+   <li class="tab col s4 l4"><a href="#test-swipe-2">Category</a></li>
+   <li class="tab col s4 l4"><a href="#test-swipe-3">Severity</a></li>
+
   </ul>
 </div>
    <div id="test-swipe-1" class="col s12">
@@ -141,6 +143,87 @@
          ?>
        </div>
      </div>
+     </div>
+   </div>
+ </div>
+ <div id="test-swipe-3" class="col s12">
+   <div class="col s12 m12 l12">
+     <div class="row">
+       <div class="col s6 m6 l2" id="db-panel">
+         <div class="card-panel grey lighten-5">
+           <span class="black-text" id="db-panel-label">SEV1</span>
+           <?php
+           $db = mysqli_connect("localhost", "root", "", "eei_db");
+
+             $query = "SELECT COUNT(severity_level) AS sevlvl FROM ticket_t WHERE severity_level='SEV1'";
+             $result = mysqli_query($db,$query);
+
+             while($row = mysqli_fetch_assoc($result)){
+                echo "<h3>" . $row['sevlvl'] . "</h3>";
+            };
+           ?>
+         </div>
+       </div>
+       <div class="col s6 m6 l2" id="db-panel">
+         <div class="card-panel grey lighten-5">
+           <span class="black-text" id="db-panel-label">SEV2</span>
+           <?php
+           $db = mysqli_connect("localhost", "root", "", "eei_db");
+
+           $query = "SELECT COUNT(severity_level) AS sevlvl FROM ticket_t WHERE severity_level='SEV2'";
+           $result = mysqli_query($db,$query);
+
+           while($row = mysqli_fetch_assoc($result)){
+              echo "<h3>" . $row['sevlvl'] . "</h3>";
+            };
+           ?>
+         </div>
+       </div>
+       <div class="col s6 m6 l2" id="db-panel">
+         <div class="card-panel grey lighten-5">
+           <span class="black-text" id="db-panel-label">SEV3</span>
+           <?php
+           $db = mysqli_connect("localhost", "root", "", "eei_db");
+
+           $query = "SELECT COUNT(severity_level) AS sevlvl FROM ticket_t WHERE severity_level='SEV3'";
+           $result = mysqli_query($db,$query);
+
+           while($row = mysqli_fetch_assoc($result)){
+              echo "<h3>" . $row['sevlvl'] . "</h3>";
+            };
+           ?>
+         </div>
+       </div>
+       <div class="col s6 m6 l2" id="db-panel">
+         <div class="card-panel grey lighten-5">
+           <span class="black-text" id="db-panel-label">SEV4</span>
+           <?php
+           $db = mysqli_connect("localhost", "root", "", "eei_db");
+
+           $query = "SELECT COUNT(severity_level) AS sevlvl FROM ticket_t WHERE severity_level='SEV4'";
+           $result = mysqli_query($db,$query);
+
+           while($row = mysqli_fetch_assoc($result)){
+              echo "<h3>" . $row['sevlvl'] . "</h3>";
+            };
+           ?>
+         </div>
+       </div>
+       <div class="col s6 m6 l2" id="db-panel">
+         <div class="card-panel grey lighten-5">
+           <span class="black-text" id="db-panel-label">SEV5</span>
+           <?php
+           $db = mysqli_connect("localhost", "root", "", "eei_db");
+
+           $query = "SELECT COUNT(severity_level) AS sevlvl FROM ticket_t WHERE severity_level='SEV5'";
+           $result = mysqli_query($db,$query);
+
+           while($row = mysqli_fetch_assoc($result)){
+              echo "<h3>" . $row['sevlvl'] . "</h3>";
+            };
+           ?>
+         </div>
+       </div>
      </div>
    </div>
  </div>

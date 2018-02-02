@@ -68,6 +68,7 @@
       $lname = $row['last_name'];
       $email = $row['email_address'];
       $user_type = $row['user_type'];
+      $firstlogin = $row['is_firstlogin'];
       if($username==$user && $password==$pass){
         session_start();
         $_SESSION['userid'] = $user;
@@ -77,16 +78,26 @@
         $_SESSION['first_name'] = $fname;
         $_SESSION['last_name'] = $lname;
         $_SESSION['email_address'] = $email;
+
+        if($firstlogin === NULL){ ?>
+          <?php
+            $db = mysqli_connect("localhost", "root", "", "eei_db");
+            $usersession = $_SESSION['userid'];
+            $islogin = "UPDATE requestor_t SET is_firstlogin = true WHERE userid = '$usersession'";
+            if (!mysqli_query($db, $islogin))
+            {
+              die('Error' . mysqli_error($db));
+            }
+            ?>
+            <script>window.location.assign('changepassword.php')</script>
+
+            <!-- <script>window.location.assign('changepassword.php')</script> -->
+          <?php } else { ?>
+            <script>window.location.assign('home.php')</script>
+
+          <?php
+          }}}
         ?>
-        <script>window.location.assign('home.php')</script>
-        <?php
-      } else{
-        ?>
-        <script> Materialize.toast('I am a toast!', 4000) </script>
-        <?php
-      }
-    }
-    ?>
     <!-- END OF LOGIN PROCESS -->
 
 

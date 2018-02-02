@@ -13,7 +13,7 @@ $type = mysqli_real_escape_string($db, $_POST['type']);
 // $request_details = mysqli_real_escape_string($db, $_POST['request_details']);
 $latest_id = mysqli_insert_id($db);
 
-$query = "INSERT INTO requestor_t (requestor_id,userid,first_name,last_name,password,email_address,user_type) VALUES (DEFAULT,'$userid','$fname','$lname','$password','$email','$type')";
+$query = "INSERT INTO requestor_t (requestor_id,userid,first_name,last_name,password,email_address,user_type) VALUES (DEFAULT,'$userid','$fname','$lname',MD5('$password'),'$email','$type')";
 
 if (!mysqli_query($db, $query))
 {

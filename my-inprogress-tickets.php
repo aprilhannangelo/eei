@@ -132,7 +132,7 @@
                                     <tr class='clickable-row' data-href="details.php?id=<?php echo $row['ticket_id']?>">
                                       <td id="type"><span class="<?php echo $class?>"> <?php echo $row['ticket_category'][0]?></span><p style="margin-top:25px;margin-bottom:-5px;font-size:8pt;"><?php echo $row['severity_level']?></p></td>
                                       <td> <?php echo $row['ticket_number']?>  </td>
-                                      <td><span class="badge new"><?php echo $row['ticket_status']?>  </span></td>
+                                      <td> <?php echo $row['ticket_status']?>  </td>
                                       <td> <?php echo $row['ticket_title']?>   </td>
                                       <td> <?php echo $row['date_prepared']?>  </td>
                                       <td> <?php echo $row['remarks'] ?>       </td>

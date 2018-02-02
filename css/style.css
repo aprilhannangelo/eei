@@ -170,7 +170,6 @@ header, main, footer {
   padding-left: 80px;
   font-weight: 500;
   letter-spacing: 1px;
-  text-transform: uppercase;
 }
 .company_logo{
   width: 45px;
@@ -219,7 +218,7 @@ ul#slide-out.side-nav.fixed{
 }
 
 .side-nav .collapsible-body li a, .side-nav.fixed .collapsible-body li a{
-  padding-left: 90px;
+  padding-left: 75px;
   font-size: 12px;
 }
 
@@ -787,13 +786,20 @@ tr:hover a.button.tooltipped{
 }
 
 span.ticket_count{
-  background-color: #4b75ff;
+  /* background-color: #4b75ff;
     color: white;
     min-width: 22px;
     font-size: 10px;
     border-radius: 10px;
     float: right;
-    margin-right: 10px;
+    margin-right: 10px; */
+    background-color: transparent;
+color: #b0b0b0;
+min-width: 22px;
+font-size: 14px;
+border-radius: 10px;
+float: right;
+margin-right: 12px;
 }
 span.ticket_cat_blank {
   min-width: 1.7rem;
@@ -927,6 +933,7 @@ h6#line2 {
 .user{
   color: #4b75ff;
   display: inline-flex;
+  font-weight: 500;
 }
 
 /* gray */
@@ -939,9 +946,10 @@ h6#line2 {
   float: right;
 }
 
-.details{
+.details, td.details{
   color: black;
-  font-weight: 500;
+  padding-top: 10px;
+  font-weight: 400;
 }
 
 /* for request_details attribute  */
@@ -961,8 +969,9 @@ div#right-card2{
 }
 
 td.first {
-    width: 25%;
+    width: 35%;
     color: #a0a5b7;
+    font-weight: 500;
 }
 
 td.deet{
@@ -1003,6 +1012,7 @@ div.material-table table th:nth-child(5), div.material-table table td:nth-child(
 
 #ticket-details td {
     padding: 5px 0 0 5px;
+    font-size: 14px;
 }
 
 #ticket-agent td{
@@ -1210,7 +1220,7 @@ div#tagent-info {
   display: none;
 } */
 
-.btn-sort {
+.btn-sort, .btn-sort:focus {
     box-shadow: none;
     background-color: white;
     border-color: #4b75ff;
@@ -1223,6 +1233,22 @@ div#tagent-info {
     text-transform: none;
     font-size: 12px;
   }
+
+  .btn-reassign, .btn-reassign:focus {
+      box-shadow: none;
+      font-weight: 500;
+      float: right;
+      background-color: white;
+      border-color: #4b75ff;
+      display: inline-block;
+      cursor: pointer;
+      padding: 8px 15px 8px 15px;
+      border: 1px solid;
+      color: #4b75ff;
+      border-radius: 3px;
+      text-transform: none;
+      font-size: 12px;
+    }
 
 .technicals-tickets{
   display: none;
@@ -1241,21 +1267,31 @@ form#check, form#approve{
   display: inline;
 }
 
-input#check, input#approve {
-  padding: 8px 15px 8px 15px;
+input#check, input#approve, input#reject {
+  /* padding: 8px 15px 8px 15px;
   background-color: #21d260;
   border-color: #21d260;
   border-radius: 5px;
   font-size: 14px;
   float: right;
   margin-right: 15px;
-  /* margin-left: 16%; */
   border-style: none;
-  color: white;
+  color: white; */
+  padding: 6px 25px 6px 25px;
+  background-color: #ffffff;
+  border-color: #4b75ff;
+  border-radius: 5px;
+  font-size: 12px;
+  float: right;
+  font-weight: 500;
+  margin-right: 15px;
+  border: 1px solid #4b75ff;
+  color: #4b75ff;
   }
 
 div#detail-header{
   box-shadow: none;
+  color: #b4b5b4;
 }
 
 /* a.search-toggle.waves-effect.btn-flat.nopadding{
@@ -1269,6 +1305,7 @@ div#ticket-properties {
     padding: 20px 20px 0px 30px;
     border-radius: 4px;
     background-color: #fff4d6;
+    margin-left: 20px;
   }
 
 div.tprop, input.tprop{
@@ -1299,11 +1336,13 @@ div#logs{
 }
 
 input#activity_log {
-    margin-bottom: 10px;
-    font-weight: 400;
+  margin-bottom: 10px;
+  font-weight: 400;
+  margin-top: 10px;
+  padding-left: 5px;
 }
 .comment_input{
-  padding-top: 25px;
+    padding-top: 25px;
     /* background-color: #fbfbfb; */
     padding-left: 15px;
     padding-right: 15px;
@@ -1311,9 +1350,49 @@ input#activity_log {
     /* border: 1px solid lightgrey; */
 }
 
-div#container.alog{
-  background-color: #fbfbfb;
+div#comment_logs{
+  font-weight: 400;
+  font-size: 14px;
+}
+
+
+div#comment_logs.alog{
+
+}
+
+.comments_content{
   border-radius: 5px;
-  padding: 20px 20px 20px 20px;
-  border: 1px solid #e8e8e8;
-}}
+      padding: 20px 20px 5px 20px;
+      background-color: #fff4d6;
+      margin-bottom: 0px;
+      margin-top: 1px;
+  }
+
+i#edit{
+  font-size: 20px;
+}
+
+span#panelheader{
+  font-size: 16px;
+}
+a.waves-effect.waves-light.modal-trigger {
+  float: right;
+  color: #4b75ff;
+}
+
+div#reassign{
+  display: none;
+}
+
+form#changep {
+    color: white;
+}
+
+input#confirmnewpass, label#confirmnewpass{
+  margin-top: 15px;
+}
+
+.approve-reject{
+    display: inline-flex;
+    float: right;
+}

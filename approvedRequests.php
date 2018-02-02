@@ -37,7 +37,7 @@
                           <th>Status</th>
                           <th>Department/Project</th>
                           <th>Access Requested</th>
-                          <th>Date Created</th>
+                          <th>Remarks</th>
                         </tr>
                       </thead>
                       <?php
@@ -71,8 +71,8 @@
                            <td id="type"><span class="<?php echo $class?>"> <?php echo $row['ticket_category'][0]?></span><p style="margin-top:25px;margin-bottom:-5px;font-size:8pt;"><?php echo $row['severity_level']?></p></td>
                            <td> <?php echo $row['ticket_number']?>  </td>
                            <td> <?php echo $row['ticket_status']?>  </td>
-                           <td> <?php echo $row['ticket_title']?>   </td>
-                           <td> <?php echo $row['date_prepared']?>  </td>
+                           <td> <?php echo $row['dept_proj']?>   </td>
+                           <td> <?php echo $row['access_requested']?>  </td>
                            <td> <?php echo $row['remarks'] ?>       </td>
                          </tr>
                           <?php

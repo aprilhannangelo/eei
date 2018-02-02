@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+  $('.modal').modal();
   //hide forms on load
   $(".accesst").hide();
   $(".requestort").hide();
@@ -60,6 +62,8 @@ $(document).ready(function(){
     $(".requestort").show();
   });
 
+
+
  //character counter for ticket Title
   $('input#input_text, textarea#textarea1').characterCounter();
 
@@ -117,7 +121,7 @@ $(document).ready(function(){
             type: "success",
             icon: "success"
         }).then(function(){
-          window.location="tickets.php";
+          window.location="my-tickets.php";
           $(".main-body").show();
         });
        }
@@ -139,7 +143,7 @@ $(document).ready(function(){
           type: "success",
           icon: "success"
       }).then(function(){
-        window.location="tickets.php";
+        window.location="my-tickets.php";
       });
      }
     })
@@ -153,11 +157,17 @@ $(document).ready(function(){
      data: $(this).serialize(),
      success: function(data)
       {
-        requestor_name= JSON.parse(data);
-          swal("User Added!", "You have added " +requestor_name + " as a user" , "success");
+          requestor_name= JSON.parse(data);
+          swal("User Added!", "You have added " +requestor_name + " as a user" , "success").then(function(){
+            location.reload();
+          });
       }
    })
  });
+
+ $('#datatable tbody').on('click', 'tr', function () {
+   window.location = $(this).data("href");
+ } );
 
 
  $("#properties").submit(function(e) {
@@ -175,9 +185,30 @@ $(document).ready(function(){
             type: "success",
             icon: "success"
         }).then(function(){
-
           location.reload();
           $("#ticket-properties").hide();
+        });
+      }
+   })
+ });
+
+ $("#edit-properties").submit(function(e) {
+   e.preventDefault();
+   $.ajax({
+     url: 'php_processes/edit_ticket_properties.php',
+     type: 'POST',
+     data: $(this).serialize(),
+     success: function()
+      {
+         // assignee= JSON.parse(data);
+         swal({
+            title: "New ticket properties saved!",
+            text: "",
+            type: "success",
+            icon: "success"
+        }).then(function(){
+
+          location.reload();
 
         });
 
@@ -217,10 +248,13 @@ $(document).ready(function(){
      data: $(this).serialize(),
      success: function()
       {
-          swal("Ticket Checked", " ", "success");
+          swal("Ticket Checked", " ", "success").then(function(){
+            $(".approve-reject").hide();
+          });
       }
      })
  });
+
 
  $("#approve").submit(function(e) {
    e.preventDefault();
@@ -230,11 +264,30 @@ $(document).ready(function(){
      data: $(this).serialize(),
      success: function()
       {
-          swal("Ticket Approved", " ", "success");
+          swal("Ticket Approved", " ", "success").then(function(){
+            $(".approve-reject").hide();
+          });
       }
-   })
-   // history.back();
+     })
  });
+
+ $("#reject").submit(function(e) {
+   e.preventDefault();
+   $.ajax({
+     url: 'php_processes/reject-process.php',
+     type: 'POST',
+     data: $(this).serialize(),
+     success: function()
+      {
+          swal("Ticket Rejected", " ", "success").then(function(){
+            $(".approve-reject").hide();
+          });
+      }
+     })
+ });
+
+
+
 
  $("#assignee").submit(function(e) {
    e.preventDefault();
@@ -251,10 +304,14 @@ $(document).ready(function(){
            type: "success",
            icon: "success"
        }).then(function(){
-         window.location="review-incoming-tickets.php";
+         location.reload();
        });
       }
      })
+ });
+
+ $( "#reassign-button" ).click(function() {
+   $( "#reassign" ).toggle( "slow" );
  });
 
  $('.edit-button').click(function () {

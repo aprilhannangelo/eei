@@ -10,4 +10,5 @@
 <!-- Responsive  -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+<link href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css" rel="stylesheet">

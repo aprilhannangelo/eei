@@ -23,7 +23,7 @@
           <div class="main-container">
             <div class="main-body">
             <div class="material-table">
-              <table id="datatable" class="striped">
+              <table id="datatable" class="striped dt-responsive nowrap" width="100%">
                 <div class="table-header">
                   <span class="table-title"><b>All Tickets</b></span>
                   <div class="actions">
@@ -149,9 +149,9 @@
                           <th>Ticket No.</th>
                           <th>Status</th>
                           <th>Notes</th>
-                          <th>Date Created</th>
+                          <th data-priority="1">Date Created</th>
                           <th>Ticket Agent</th>
-                          <th>Remarks</th>
+                          <th data-priority="2">Remarks</th>
                         </tr>
                       </thead>
                       <tbody>
