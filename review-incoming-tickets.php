@@ -13,6 +13,8 @@
 
   <body>
     <?php include 'templates/navheader.php'; ?>
+    <div class="wrapper">
+
     <?php include 'templates/sidenav.php'; ?>
 
     <!-- ****************************************************** -->
@@ -384,7 +386,7 @@
       </div> <!-- End of wrapper of col l10 -->
     </div>
     <!-- END OF COL l10 -->
-
+  </div>
     <?php include 'templates/js_resources.php' ?>
 
     </body>

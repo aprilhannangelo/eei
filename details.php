@@ -90,13 +90,13 @@
 
                         while($row = mysqli_fetch_assoc($result)){
                             $email = $row['email'];
-                           echo "<h5><b>" . $row['ticket_title'] . "</h5>" .
+                           echo "<h5><b>" . $row['ticket_title'] . "</h5></b>" .
                                 "<p id=\"requestor_details\">" . "<style=\"color:blue\">" . "<span class=\"name-in-ticket tooltipped\" data-position=\"right\" data-delay=\"50\" data-tooltip=\"$email\">" . $row['requestor'] . "</span>" . "<span class=\"request_date\">" . " reported on " . $row['date_prepared'] . "</p>" .
                                 "<p id=\"details\">" . $row['request_details'] . "</p>";
                        };
                        while($row = mysqli_fetch_assoc($result2)){
 
-                          echo "<h5><b>" . $row['ticket_title'] . "</h5>" .
+                          echo "<h5><b>" . $row['ticket_title'] . "</h5></b>" .
                                "<p id=\"requestor_details\">" . "<style=\"color:blue\">" . "<span class=\"name-in-ticket\">" . $row['requestor'] . "</span>" . "<span class=\"request_date\">" . " reported on " . $row['date_prepared'] . "</p>" .
                                "<br> <p id=\"details\">" . $row['access_requested'] . "</p>";
                           }; ?>

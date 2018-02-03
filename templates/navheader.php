@@ -2,7 +2,7 @@
 <header class="page-topbar">
   <nav  class="color">
      <div class="nav-wrapper">
-       <a href="#!" class="brand-logo"><img class="company_logo" src="img/eei.png"></a><span class="name">EEI Corporation's Help Desk</span>
+       <a href="#!" class="brand-logo"><img class="company_logo" src="img/eei.png"></a><span class="name">EEI Corporation Help Desk</span>
        <ul class="right hide-on-med-and-down">
           <!-- Dropdown Trigger for New Ticket -->
           <li><a class="dropdown-button btn-invert" data-activates="dropdown2" data-beloworigin="true">New Ticket<i class="tiny material-icons" id="add-ticket">add</i></a></li>
