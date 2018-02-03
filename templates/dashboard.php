@@ -11,9 +11,9 @@
   </ul>
 </div>
    <div id="test-swipe-1" class="col s12">
-     <div class="col s12 m12 l12">
+     <!-- <div class="col s12 m12 l12"> -->
        <div class="row">
-         <div class="col s12 m12 l2" id="db-panel">
+         <div class="col s12 m2 l2" id="db-panel">
            <div class="card-panel grey lighten-5">
              <span id="db-panel-label-overdue">Overdue</span>
              <!-- get number of tickets whose due date base on their severity level has passed -->
@@ -30,7 +30,7 @@
              ?>
            </div>
          </div>
-         <div class="col s6 m6 l2" id="db-panel">
+         <div class="col s12 m12 l2" id="db-panel">
            <div class="card-panel grey lighten-5">
              <span class="black-text" id="db-panel-label">In Progress</span>
              <?php
@@ -45,7 +45,7 @@
              ?>
            </div>
          </div>
-         <div class="col s6 m6 l2" id="db-panel">
+         <div class="col s12 m12 l2" id="db-panel">
            <div class="card-panel grey lighten-5">
              <span class="black-text" id="db-panel-label">Pending</span>
              <?php
@@ -91,7 +91,7 @@
            </div>
          </div>
        </div>
-     </div>
+     <!-- </div> -->
    </div>
 
 <div id="test-swipe-2" class="col s12">

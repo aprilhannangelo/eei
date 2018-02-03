@@ -153,8 +153,6 @@ header, main, footer {
       header, main, footer {
         padding-left: 0;
         color: black;
-        margin-bottom: 30px;
-
       }
     }
 
@@ -193,7 +191,7 @@ ul#slide-out.side-nav.fixed{
 
 @media only screen and (max-width: 992px){
 a.button-collapse {
-    position: absolute;
+    position: fixed;
     margin-top: 1rem;
     margin-left: 1.5rem;
     color: white;
@@ -710,7 +708,13 @@ i.waves-effect.waves-light.cancel.waves-input-wrapper {
     color: white;
 }
 
-
+input#button-login{
+    display: block;
+    background-color: #4b75ff;
+    color: white;
+    width: 100%;
+    /* padding: 6px 150px 6px 150px; */
+}
   i#knowledge-base {
     color: white;
     position: unset;
@@ -754,6 +758,14 @@ padding-right: 50px;
      /* margin-right: 300px; */
    }
  }
+
+ @media only screen and (max-width: 999px){
+   .main-container{
+     padding: 80px 0 0 0;
+     /* margin-right: 300px; */
+   }
+ }
+
 
 i#profile {
     margin-left: 10px;

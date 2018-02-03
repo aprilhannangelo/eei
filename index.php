@@ -35,15 +35,13 @@
                 </div>
               </div>
               <div class="row" id="controls">
-                <p id="login">
-                 <input type="checkbox" id="test5" />
+                 <input type="checkbox" id="remember" name="remember" />
                  <label for="test5">Remember Me</label>
-               </p>
+                 <a class="password-forgot" href"#!">Forgot Password?</a>
               </div>
               <div class="row">
-                 <input class="waves-effect waves-light btn-login" name="submit" type="submit" value="Login">
+                 <input class="waves-effect waves-light btn-login" id="button-login" name="submit" type="submit" value="Login">
                  <br>
-                 <a class="password-forgot" href"#!">Forgot Password?</a>
               </div>
               </form>
             </div>

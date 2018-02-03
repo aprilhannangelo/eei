@@ -30,7 +30,7 @@
               </div>
               <div class="row">
                 <br>
-                 <input class="waves-effect waves-light btn-login" name="submit" type="submit" value="Update Password">
+                 <input class="waves-effect waves-light btn-login" id="button-login" name="submit" type="submit" value="Update Password">
                  <input value = "<?php echo $_SESSION['userid']?>" name="userid" type="hidden">
               </div>
               </form>
