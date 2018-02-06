@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!isset($_SESSION['requestor_id'])){
+  if(!isset($_SESSION['user_id'])){
     header('location: index.php');
   }
 ?>
@@ -43,14 +43,14 @@
                     <?php
                     $db = mysqli_connect("localhost", "root", "", "eei_db");
                     //Query for the way the table is shown in hr-index.php
-                    $query = "SELECT * FROM requestor_t";
+                    $query = "SELECT * FROM user_t";
 
 
                     $result = mysqli_query($db,$query);
                     while ($row = mysqli_fetch_assoc($result)){
                     ?>
 
-                      <tr class='clickable-row' data-href="profile.php?id=<?php echo $row['requestor_id']?>">
+                      <tr class='clickable-row' data-href="profile.php?id=<?php echo $row['user_id']?>">
                             <td class = 'user-row'> <?php echo $row['first_name'] . ' ' . $row['last_name']?>  </td>
                             <td class = 'user-row'> <?php echo $row['userid']?>   </td>
                             <td class = 'user-row'> <?php echo $row['email_address']?>  </td>
@@ -121,7 +121,7 @@
 
                                       <select name = "type" required>
                                       <option value= "">Select</option>
-                                      <?php $get_user_type = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'requestor_t' AND COLUMN_NAME = 'user_type'");
+                                      <?php $get_user_type = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'user_t' AND COLUMN_NAME = 'user_type'");
                                       $row = mysqli_fetch_array($get_user_type);
                                       $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
                                       foreach($enumList as $value){?>

@@ -35,18 +35,24 @@
                   <?php
                   $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-                    $query2 = "SELECT t.ticket_number, u.isChecked, u.isApproved, u.approver as approver,u.checker as checker FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) left join user_access_ticket_t u on (u.ticket_id=t.ticket_id) WHERE t.ticket_id = '".$_GET['id']."'";
+                    $query2 = "SELECT t.ticket_number, u.isChecked, u.isApproved, u.approver as approver,u.checker as checker FROM ticket_t t INNER JOIN user_t r  on (t.user_id=r.user_id) left join user_access_ticket_t u on (u.ticket_id=t.ticket_id) WHERE t.ticket_id = '".$_GET['id']."'";
 
                     $result2= mysqli_query($db,$query2);
 
                     while($row = mysqli_fetch_assoc($result2)){?>
                       <div class="header">
-
-                       <?php echo "<h5><input class=\"material-icons\" alt=\"Go back\" type=\"submit\" id=\"details-back\" value=\"arrow_back\" onclick=\"window.history.go(-1); return false;\">Ticket #" . $row['ticket_number'];
-
-                       $id = $_SESSION['requestor_id'];
+                       <?php echo "<input class=\"material-icons\" alt=\"Go back\" type=\"submit\" id=\"details-back\" value=\"arrow_back\" onclick=\"window.history.go(-1); return false;\">Ticket #" . $row['ticket_number'];
+                       $id = $_SESSION['user_id'];
                        $ticketID =$_GET['id'];
                        ?>
+                       <div class="row detail-actions">
+                       <div class="row" id="activity-log">
+                         <button class="btn-activitylog">Add activity log</button>
+                       </div>
+                       <form id="cancel" name="cancel" method="post">
+                         <input id="cancel" type="submit" onclick="php_processes/cancel-process.php'" value="Cancel">
+                         <input  id="cancel" name = "ticketID" type="hidden" value="<?php echo $ticketID?>">
+                       </form>
                        <div class="approve-reject">
                          <?php
                            if ($row['approver']==$id) { ?>
@@ -75,14 +81,15 @@
                 <?php };?>
                       </div>
                     </div>
+                  </div>
 
                   <div class="card-panel">
                     <span class="black-text">
                       <?php
                         $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-                        $query = "SELECT t.ticket_title, s.request_details, r.email_address as email, DATE_FORMAT(date_prepared, '%W %b %e %Y %r') as date_prepared, CONCAT(r.first_name, ' ', r.last_name) As requestor FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) left join service_ticket_t s on (s.ticket_id=t.ticket_id) WHERE s.ticket_id = '".$_GET['id']."'";
-                        $query2 = "SELECT u.isChecked, u.isApproved, u.approver as approver,u.checker as checker,t.ticket_title, u.access_requested, u.dept_proj,DATE_FORMAT(date_prepared, '%W %M %e %Y') as date_prepared, CONCAT(r.first_name, ' ', r.last_name) As requestor , r.user_type as user_type FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) left join user_access_ticket_t u on (u.ticket_id=t.ticket_id) WHERE u.ticket_id = '".$_GET['id']."'";
+                        $query = "SELECT t.ticket_title, s.request_details, r.email_address as email, DATE_FORMAT(date_prepared, '%W %b %e %Y %r') as date_prepared, CONCAT(r.first_name, ' ', r.last_name) As requestor FROM ticket_t t INNER JOIN user_t r  on (t.user_id=r.user_id) left join service_ticket_t s on (s.ticket_id=t.ticket_id) WHERE s.ticket_id = '".$_GET['id']."'";
+                        $query2 = "SELECT u.isChecked, u.isApproved, u.approver as approver,u.checker as checker,t.ticket_title, u.access_requested, u.dept_proj,DATE_FORMAT(date_prepared, '%W %M %e %Y') as date_prepared, CONCAT(r.first_name, ' ', r.last_name) As requestor , r.user_type as user_type FROM ticket_t t INNER JOIN user_t r  on (t.user_id=r.user_id) left join user_access_ticket_t u on (u.ticket_id=t.ticket_id) WHERE u.ticket_id = '".$_GET['id']."'";
 
                         $result = mysqli_query($db,$query);
                         $result2= mysqli_query($db,$query2);
@@ -102,13 +109,12 @@
                           }; ?>
                  </div>
                 <br>
-
                    <div id="container">
                      <?php if ($_SESSION['user_type'] != 'Requestor'){ ?>
                       <div id="comment_logs" class="alog">
                         <?php
                         $db = mysqli_connect("localhost", "root", "", "eei_db");
-                        $result = mysqli_query($db, "SELECT a.activity_log_details, DATE_FORMAT(a.timestamp, '%b %e %Y %r') as timestamp, a.logger, a.activity_log_id, CONCAT(r.first_name, ' ', r.last_name) AS user, t.ticket_number FROM activity_log_t a LEFT JOIN ticket_t t ON a.ticket_no = t.ticket_number LEFT JOIN requestor_t r ON r.requestor_id = a.logger WHERE t.ticket_id = '".$_GET['id']."' ORDER BY a.activity_log_id DESC");
+                        $result = mysqli_query($db, "SELECT a.activity_log_details, DATE_FORMAT(a.timestamp, '%b %e %Y %r') as timestamp, a.logger, a.activity_log_id, CONCAT(r.first_name, ' ', r.last_name) AS user, t.ticket_id FROM activity_log_t a LEFT JOIN ticket_t t ON a.ticket_id = t.ticket_id LEFT JOIN user_t r ON r.user_id = a.logger WHERE t.ticket_id = '".$_GET['id']."' ORDER BY a.activity_log_id DESC");
                         $row_cnt = mysqli_num_rows($result);
                         if($row_cnt > 0){
                           while($row=mysqli_fetch_array($result)){
@@ -132,17 +138,17 @@
                                 <?php
                                   $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-                                  $query2 = "SELECT COUNT(*) as count, ticket_number FROM ticket_t WHERE ticket_id = '".$_GET['id']."'";
+                                  $query2 = "SELECT COUNT(*) as count, ticket_id FROM ticket_t WHERE ticket_id = '".$_GET['id']."'";
 
                                   $result2= mysqli_query($db,$query2);
 
                                   while($row = mysqli_fetch_assoc($result2)){
-                                    // $logger = $_SESSION['requestor_id'];
+                                    // $logger = $_SESSION['user_id'];
 
-                                    $ticketID = $row['ticket_number'];
+                                    $ticketID = $row['ticket_id'];
                                   }
                                  ?>
-                                 <div class="tprop"><input id="post" class="waves-effect waves-light save" type="submit" name="submit" onclick="php_processes/activitylog_process.php'" value="Post" />
+                                 <div class="tprop"><input id="submit" class="waves-effect waves-light save" type="submit" name="submit" onclick="php_processes/activitylog_process.php'" value="Post" />
                                  <input id="post" name = "ticketID" type="hidden" value="<?php echo $ticketID?>"></div>
                                 </div>
                               </div>
@@ -180,14 +186,12 @@
                         $result= mysqli_query($db,$query6);
 
                         while($row = mysqli_fetch_assoc($result)){
-                          // $logger = $_SESSION['requestor_id'];
+                          // $logger = $_SESSION['user_id'];
 
                           $ticketID = $row['ticket_number'];
                         }
 
                           ?>
-
-                          <input id="post" name = "ticketID" type="hidden" value="<?php echo $ticketID?>">
                       </div>
                       <div id="properties" class="row " id="request-form-row">
                         <div class="col s12 m12 l12 properties-box" id="properties-box">
@@ -196,12 +200,12 @@
                               <select name = "assignee" required >
                               <option value="">Select</option>
                                 <?php
-                                  $result = mysqli_query($db, "SELECT requestor_id, CONCAT(first_name, ' ', last_name) AS technician FROM requestor_t WHERE user_type = 'Technician'");
+                                  $result = mysqli_query($db, "SELECT user_id, CONCAT(first_name, ' ', last_name) AS technician FROM user_t WHERE user_type = 'Technician'");
 
                                   while ($row = mysqli_fetch_array($result))
                                     {?>
 
-                                        <option value='<?php echo $row['requestor_id']?>'> <?php echo $row['technician'] ?></option>;
+                                        <option value='<?php echo $row['user_id']?>'> <?php echo $row['technician'] ?></option>;
                                         <?php
                                     } ?>
                                     </select>
@@ -227,7 +231,7 @@
                     $result= mysqli_query($db,$query6);
 
                     while($row = mysqli_fetch_assoc($result)){
-                      // $logger = $_SESSION['requestor_id'];
+                      // $logger = $_SESSION['user_id'];
 
                       $ticketID = $row['ticket_number'];
                     }
@@ -249,11 +253,11 @@
                           <select name = "assignee" required >
                           <option value="">Select</option>
                             <?php
-                              $result = mysqli_query($db, "SELECT requestor_id, CONCAT(first_name, ' ', last_name) AS nengineer FROM requestor_t WHERE user_type = 'Network Engineer'");
+                              $result = mysqli_query($db, "SELECT user_id, CONCAT(first_name, ' ', last_name) AS nengineer FROM user_t WHERE user_type = 'Network Engineer'");
 
                               while ($row = mysqli_fetch_array($result))
                                 {?>
-                                    <option value='<?php echo $row['requestor_id']?>'> <?php echo $row['nengineer'] ?></option>;
+                                    <option value='<?php echo $row['user_id']?>'> <?php echo $row['nengineer'] ?></option>;
                                     <?php
                                 } ?>
 
@@ -286,7 +290,7 @@
                   $result= mysqli_query($db,$query6);
 
                   while($row = mysqli_fetch_assoc($result)){
-                    // $logger = $_SESSION['requestor_id'];
+                    // $logger = $_SESSION['user_id'];
 
                     $ticketID = $row['ticket_number'];
                   }
@@ -302,12 +306,12 @@
                         <select name = "assignee" required >
                         <option value="">Select</option>
                           <?php
-                            $result = mysqli_query($db, "SELECT requestor_id, CONCAT(first_name, ' ', last_name) AS technician FROM requestor_t WHERE user_type = 'Technician'");
+                            $result = mysqli_query($db, "SELECT user_id, CONCAT(first_name, ' ', last_name) AS technician FROM user_t WHERE user_type = 'Technician'");
 
                             while ($row = mysqli_fetch_array($result))
                               {?>
 
-                                  <option value='<?php echo $row['requestor_id']?>'> <?php echo $row['technician'] ?></option>;
+                                  <option value='<?php echo $row['user_id']?>'> <?php echo $row['technician'] ?></option>;
                                   <?php
                               } ?>
                               </select>
@@ -349,11 +353,11 @@
                     <select name = "assignee" required >
                     <option value="">Select</option>
                       <?php
-                        $result = mysqli_query($db, "SELECT requestor_id, CONCAT(first_name, ' ', last_name) AS nengineer FROM requestor_t WHERE user_type = 'Network Engineer'");
+                        $result = mysqli_query($db, "SELECT user_id, CONCAT(first_name, ' ', last_name) AS nengineer FROM user_t WHERE user_type = 'Network Engineer'");
 
                         while ($row = mysqli_fetch_array($result))
                           {?>
-                              <option value='<?php echo $row['requestor_id']?>'> <?php echo $row['nengineer'] ?></option>;
+                              <option value='<?php echo $row['user_id']?>'> <?php echo $row['nengineer'] ?></option>;
                               <?php
                           } ?>
 
@@ -377,8 +381,11 @@
                       <div class="card-panel" id="ticket-properties">
                         <span class="black-text">
                              <form id="properties" name="properties" method="post">
-                               <div class="tprop-header"><h6>Assign Ticket Properties</h6></div>
-                               <div class="tprop"><input class="waves-effect waves-light save" id="request-form-row" name="submit" type="submit" value="Save"></div>
+                               <span id="panelheader">Assign Ticket Properties</span>
+                               <div id="card-header">
+                               <input class="waves-effect waves-light save" id="submit" name="submit" type="submit" value="Save">
+                               <input value = "<?php echo $_GET['id']?>" class="title" name="id" type="hidden" data-length="40" class="validate" required>
+                             </div>
                         </span>
                                <div id="properties" class="row " id="request-form-row">
                                  <div class="col s12 m12 l12 properties-box" id="properties-box">
@@ -388,7 +395,7 @@
                                          $db = mysqli_connect("localhost", "root", "", "eei_db");?>
 
                                          <select name = "category" required>
-                                         <option value= "disabled selected">Select</option>
+                                         <option disabled selected>Select</option>
                                          <?php $get_user_type = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'ticket_category'");
                                          $row = mysqli_fetch_array($get_user_type);
                                          $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
@@ -403,25 +410,18 @@
                                      <div class="input-field ticket-properties" id="request-form">
                                        <?php
                                          $db = mysqli_connect("localhost", "root", "", "eei_db");?>
-
-                                         <select name = "severity" required >
-                                         <option value="">Select</option>
+                                         <select name='severity'>
+                                           <option disabled selected>Select</option>
                                          <?php
-                                         $get_user_type = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'severity_level'");
-                                         $row = mysqli_fetch_array($get_user_type);
-                                         $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
-                                         foreach($enumList as $value){?>
-                                         <option value='<?php echo $value?>'> <?php echo $value?> </option>
-                                             <?php } ?>
-                                         </select>
-
+                                          $get_sevlvl = "SELECT * FROM sla_t";
+                                          $result = mysqli_query($db, $get_sevlvl);
+                                           while ($row = mysqli_fetch_assoc($result)) {
+                                              ?>
+                                              <option value="<?php echo $row['id']?>"> <?php echo $row['severity_level']?> </option>
+                                           <?php }; ?>
+                                          </select>
                                          <label for="title">Severity</label>
                                      </div>
-                                   </div>
-                                 </div>
-                                 <div class="row ticket-properties">
-                                   <div class="col s12">
-                                     <input value = "<?php echo $_GET['id']?>" class="title" name="id" type="hidden" data-length="40" class="validate" required>
                                    </div>
                                  </div>
                                </div>
@@ -453,18 +453,17 @@
                                 <?php
                                   $db = mysqli_connect("localhost", "root", "", "eei_db");?>
 
-                                  <?php $retrieve = mysqli_query($db, "SELECT ticket_status, ticket_category, severity_level FROM ticket_t WHERE ticket_id = '".$_GET['id']."'");
+                                  <?php $retrieve = mysqli_query($db, "SELECT * FROM ticket_t LEFT JOIN ticket_status_t stat ON stat.status_id = ticket_t.ticket_status LEFT JOIN sla_t sev ON sev.id = ticket_t.severity_level WHERE ticket_id = '".$_GET['id']."'");
                                   $row = mysqli_fetch_array($retrieve);?>
 
                                   <select name = "status" required>
-                                  <option value= "disabled selected"><?php echo $row['ticket_status']?></option>
-                                  <?php $get_user_type = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'ticket_status'");
-                                  $row = mysqli_fetch_array($get_user_type);
-                                  $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
-                                  foreach($enumList as $value){?>
-                                  <option value='<?php echo $value?>'> <?php echo $value?> </option>
-                                      <?php } ?>
-                                  </select>
+                                  <option selected><?php echo $row['ticket_status']?></option>
+                                  <?php $get_stat = "SELECT * FROM ticket_status_t WHERE status_id >= '5'";
+                                  $result = mysqli_query($db, $get_stat);
+                                    while ($row = mysqli_fetch_assoc($result)) {?>
+                                      <option value='<?php echo $row['status_id']?>'> <?php echo $row['ticket_status']?></option>
+                                    <?php } ?>
+                                    </select>
 
                                   <label for="title">Ticket Status</label>
                               </div>
@@ -476,7 +475,7 @@
                                   $row = mysqli_fetch_array($retrieve);?>
 
                                   <select name = "category" required>
-                                  <option value= "disabled selected"><?php echo $row['ticket_category']?></option>
+                                  <option disabled selected><?php echo $row['ticket_category']?></option>
                                   <?php $get_user_type = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'ticket_category'");
                                   $row = mysqli_fetch_array($get_user_type);
                                   $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
@@ -490,20 +489,21 @@
                                   <?php
                                     $db = mysqli_connect("localhost", "root", "", "eei_db");?>
 
-                                    <?php $retrieve = mysqli_query($db, "SELECT ticket_status, ticket_category, severity_level FROM ticket_t WHERE ticket_id = '".$_GET['id']."'");
+                                    <?php $retrieve = mysqli_query($db, "SELECT * FROM ticket_t LEFT JOIN ticket_status_t stat ON stat.status_id = ticket_t.ticket_status LEFT JOIN sla_t sev ON sev.id = ticket_t.severity_level WHERE ticket_id = '".$_GET['id']."'");
                                     $row = mysqli_fetch_array($retrieve);?>
 
-                                    <select name = "severity" required >
-                                    <option value= "disabled selected"><?php echo $row['severity_level']?></option>
                                     <?php
-                                    $get_user_type = mysqli_query($db, "SELECT column_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ticket_t' AND COLUMN_NAME = 'severity_level'");
-                                    $row = mysqli_fetch_array($get_user_type);
-                                    $enumList = explode(",", str_replace("'", "", substr($row['column_type'], 5, (strlen($row['column_type'])-6))));
-                                    foreach($enumList as $value){?>
-                                    <option value='<?php echo $value?>'> <?php echo $value?> </option>
-                                        <?php } ?>
-                                    </select>
-                                    <label for="title">Severity Level</label>
+                                      $db = mysqli_connect("localhost", "root", "", "eei_db");?>
+                                      <select name='severity'>
+                                        <option disabled selected><?php echo $row['severity_level']?></option>
+                                      <?php
+                                       $get_sevlvl = "SELECT * FROM sla_t";
+                                       $result = mysqli_query($db, $get_sevlvl);
+                                        while ($row = mysqli_fetch_assoc($result)) {?>
+                                           <option value='<?php echo $row['id']?>'> <?php echo $row['severity_level']?> </option>
+                                        <?php }; ?>
+                                       </select>
+                                      <label for="title">Severity Level</label>
                               </div>
                             </div>
                         </div>
@@ -518,7 +518,7 @@
                             <?php
                             $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-                              $query = "SELECT t.ticket_status, t.severity_level, t.ticket_category, t.date_required FROM ticket_t t WHERE ticket_id = '".$_GET['id']."'";
+                              $query = "SELECT stat.ticket_status, sev.severity_level, t.ticket_category, t.date_required FROM ticket_t t LEFT JOIN sla_t sev ON t.severity_level = sev.id LEFT JOIN ticket_status_t stat ON stat.status_id = t.ticket_status WHERE ticket_id = '".$_GET['id']."'";
 
                               $result = mysqli_query($db,$query);
 
@@ -569,7 +569,7 @@
                                 <?php
                                 $db = mysqli_connect("localhost", "root", "", "eei_db");
 
-                                $query = "SELECT CONCAT(r.first_name, ' ', r.last_name) As requestor , r.email_address AS email FROM ticket_t t INNER JOIN requestor_t r  on (t.requestor_id=r.requestor_id) WHERE t.ticket_id = '".$_GET['id']."'";
+                                $query = "SELECT CONCAT(r.first_name, ' ', r.last_name) As requestor , r.email_address AS email FROM ticket_t t INNER JOIN user_t r  on (t.user_id=r.user_id) WHERE t.ticket_id = '".$_GET['id']."'";
                                 $result = mysqli_query($db,$query);
 
                                   while($row = mysqli_fetch_assoc($result)){
@@ -579,7 +579,7 @@
                                          "<tr><td><br></td></tr>";
                                   }
 
-                                $query2 = "SELECT CONCAT(r.first_name, r.last_name) AS approver, r.email_address AS email FROM requestor_t r LEFT JOIN user_access_ticket_t U ON r.requestor_id = u.approver WHERE u.ticket_id = '".$_GET['id']."'";
+                                $query2 = "SELECT CONCAT(r.first_name, r.last_name) AS approver, r.email_address AS email FROM user_t r LEFT JOIN user_access_ticket_t U ON r.user_id = u.approver WHERE u.ticket_id = '".$_GET['id']."'";
                                 $result2 = mysqli_query($db,$query2);
 
                                    while($row2 = mysqli_fetch_assoc($result2)){
@@ -589,7 +589,7 @@
                                           "<tr><td><br></td></tr>";
                                    }
 
-                                $query3 = "SELECT CONCAT(r.first_name, r.last_name) AS checker, r.email_address AS email FROM requestor_t r LEFT JOIN user_access_ticket_t U ON r.requestor_id = u.checker WHERE u.ticket_id = '".$_GET['id']."'";
+                                $query3 = "SELECT CONCAT(r.first_name, r.last_name) AS checker, r.email_address AS email FROM user_t r LEFT JOIN user_access_ticket_t U ON r.user_id = u.checker WHERE u.ticket_id = '".$_GET['id']."'";
                                 $result3 = mysqli_query($db,$query3);
 
                                   while($row3 = mysqli_fetch_assoc($result3)){
@@ -599,7 +599,7 @@
                                          "<tr><td><br></td></tr>";
                                   }
 
-                                $query4 = "SELECT CONCAT(r.first_name, r.last_name) AS tagent, r.email_address AS email FROM requestor_t r LEFT JOIN ticket_t t ON r.requestor_id =t.ticket_agent_id WHERE t.ticket_id = '".$_GET['id']."'";
+                                $query4 = "SELECT CONCAT(r.first_name, r.last_name) AS tagent, r.email_address AS email FROM user_t r LEFT JOIN ticket_t t ON r.user_id =t.ticket_agent_id WHERE t.ticket_id = '".$_GET['id']."'";
                                 $result4 = mysqli_query($db,$query4);
 
                                   while($row4 = mysqli_fetch_assoc($result4)){

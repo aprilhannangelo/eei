@@ -7,7 +7,7 @@ $request_title = mysqli_real_escape_string($db, $_POST['title']);
 $request_details = mysqli_real_escape_string($db, $_POST['request_details']);
 
 //INSERT TO TICKET_T
-$query1 = "INSERT INTO ticket_t (ticket_id, ticket_title, ticket_type, date_prepared, requestor_id) VALUES(DEFAULT, '$request_title', 'Service', NOW(), '{$_SESSION['requestor_id']}')";
+$query1 = "INSERT INTO ticket_t (ticket_id, ticket_title, ticket_type, ticket_status, date_prepared, user_id) VALUES(DEFAULT, '$request_title', 'Service', '1', NOW(), '{$_SESSION['user_id']}')";
 if (!mysqli_query($db, $query1))
 {
   die('Error' . mysqli_error($db));
@@ -25,7 +25,7 @@ if (!mysqli_query($db, $query2))
 }
 
 //INSERT to service_ticket_t
-$query3 = "INSERT INTO service_ticket_t (ticket_id, ticket_number, request_details) VALUES('$latest_id', (SELECT ticket_number from ticket_t WHERE ticket_id = '$latest_id'), '$request_details')";
+$query3 = "INSERT INTO service_ticket_t (ticket_id, request_details) VALUES('$latest_id', '$request_details')";
 if (!mysqli_query($db, $query3))
 {
   die('Error' . mysqli_error($db));

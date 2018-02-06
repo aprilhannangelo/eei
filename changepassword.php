@@ -48,7 +48,7 @@
     $session = $_SESSION['userid'];
 
     if($newpass === $confirmnewpass){
-      $query = "UPDATE requestor_t SET password = MD5('$newpass') WHERE userid = '$session'";
+      $query = "UPDATE user_t SET password = MD5('$newpass') WHERE userid = '$session'";
       if (!mysqli_query($db, $query))
       {
         die('Error' . mysqli_error($db));

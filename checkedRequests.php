@@ -41,9 +41,9 @@
                         </tr>
                       </thead>
                       <?php
-                      $id = $_SESSION['requestor_id'];
-                      $query = "SELECT * FROM ticket_t LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number)
-                                WHERE (user_access_ticket_t.checker = $id AND user_access_ticket_t.isChecked = true)";
+                      $id = $_SESSION['user_id'];
+                      $query = "SELECT * FROM ticket_t LEFT JOIN user_access_ticket_t USING (ticket_id) LEFT JOIN sla_t sev ON sev.id = ticket_t.severity_level LEFT JOIN ticket_status_t stat ON stat.status_id = ticket_t.ticket_status
+                      WHERE (user_access_ticket_t.checker = $id AND user_access_ticket_t.isChecked = true)";
 
                       $result = mysqli_query($db,$query);?>
 

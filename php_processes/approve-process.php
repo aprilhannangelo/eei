@@ -17,7 +17,7 @@ if (!mysqli_query($db, $query))
 
 // $errorMsg = mysqli_error($db);
 
-$query2 = "UPDATE ticket_t SET ticket_status = 'Approved' WHERE ticket_id  = $ticketID";
+$query2 = "UPDATE ticket_t SET ticket_status = '3' WHERE ticket_id  = $ticketID";
 
 if (!mysqli_query($db, $query2))
 {

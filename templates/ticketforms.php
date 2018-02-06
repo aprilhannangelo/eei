@@ -5,47 +5,47 @@
       <div class="search-bar"><h5 class="body-header"><b>New Service Request </b></h5></div>
         <hr>
         <div class="row">
-          <div class="col s12 m12 l12">
-              <div class="col s12 m12 l6" id="form">
-                <div class="row" id="request-form-row">
-                  <div class="col s12">
-                    <div class="input-field" id="request-form">
-                      <input placeholder="<?php echo $_SESSION['first_name'] . ' '. $_SESSION['last_name'] ?>" name="rname" type="text" disabled>
-                      <label for="rname">Requestor's Name</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row" id="request-form-row2">
-                  <div class="col s12">
-                    <!-- <i class="tiny material-icons" id="form">event</i>Date Prepared: -->
-                    <div class="input-field" id="request-form">
-                      <input type="text"  id="date_prepared" name="date_prepared" disabled>
-                      <label for="date_prepared">Date Prepared (YYYY/MM/DD)</label>
-                    </div>
-                  </div>
+          <div class="col s12 m12 l6" id="form">
+            <div class="row" id="request-form-row3">
+              <div class="col s12">
+                <div class="input-field" id="request-form">
+                  <input placeholder="<?php echo $_SESSION['first_name'] . ' '. $_SESSION['last_name'] ?>" name="rname" type="text" disabled>
+                  <label for="rname">Requestor's Name</label>
                 </div>
               </div>
-              <div class="col s12 m12 l6" id="form">
-                <div class="row" id="request-form-row">
-                  <div class="col s12">
-                    <div class="input-field" id="request-form">
-                      <input placeholder=" " class="title" name="title" type="text" data-length="40" class="validate" required>
-                      <label for="title">Request Title</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="input-field" id="request-form-row3">
-                  <textarea id="textarea1" placeholder=" " class="materialize-textarea" name="request_details" required></textarea>
-                  <label for="textarea1" required>Details</label>
-                </div>
-                <div class="row">
-                  <input class="waves-effect waves-light submit" id="request-form" name="submit" type="submit" value="Submit">
-                  <input class="waves-effect waves-light cancel" id="request-form" name="submit" type="submit" value="Cancel">
+            </div>
+            <div class="row" id="request-form-row2">
+              <div class="col s12">
+                <!-- <i class="tiny material-icons" id="form">event</i>Date Prepared: -->
+                <div class="input-field" id="request-form">
+                  <input type="text"  id="date_prepared" name="date_prepared" disabled>
+                  <label for="date_prepared">Date Prepared (YYYY/MM/DD)</label>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="col s12 m12 l6" id="form">
+            <div class="row" id="request-form-row3">
+              <div class="col s12">
+                <div class="input-field" id="request-form">
+                  <input placeholder=" " class="title" name="title" type="text" data-length="40" class="validate" required>
+                  <label for="title">Request Title</label>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="request-form-row">
+              <div class="input-field">
+                <textarea id="textarea1" placeholder=" " class="materialize-textarea" name="request_details" required></textarea>
+                <label for="textarea1" required>Details</label>
+              </div>
+            </div>
+            <div class="row" id="request-form-row2">
+              <input class="waves-effect waves-light submit" id="request-form" name="submit" type="submit" value="Submit">
+              <input class="waves-effect waves-light cancel" id="request-form" name="submit" type="submit" value="Cancel">
+            </div>
+          </div>
           </div>
         </div>
-    </div>
   </form> <!-- End of Service Request Form -->
 
   <!-- USER ACCESS FORM  -->
@@ -143,7 +143,7 @@
                       </div>
                     </div>
                   </div>
-              <div class="row" id="request-form-row3">
+              <div class="row" id="request-form-row2">
                <div class="col s12">
                  <div class="input-field" id="request-form">
                    <input type="text" class="datepicker"  id="expiry_date" name="expiry_date" placeholder="">
@@ -151,7 +151,7 @@
                  </div>
                </div>
               </div>
-              <div class="row">
+              <div class="row" id="request-form-row2">
                 <div class="col s12">
                   <input class="waves-effect waves-light submit" id="request-form" name="submit" type="submit" value="Submit">
                   <input class="waves-effect waves-light cancel" id="request-form" name="submit" type="submit" value="Cancel">

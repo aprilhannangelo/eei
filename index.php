@@ -54,14 +54,14 @@
     if(isset($_POST['userid']) && isset($_POST['password'])){
       $username = $_POST['userid'];
       $password = md5($_POST['password']);
-      $stmt = $db->prepare("SELECT * FROM requestor_t WHERE userid=? AND password=? ");
+      $stmt = $db->prepare("SELECT * FROM user_t WHERE userid=? AND password=? ");
       $stmt->bindParam(1, $username);
       $stmt->bindParam(2, $password);
       $stmt->execute();
       $row = $stmt->fetch();
       $user = $row['userid'];
       $pass = $row['password'];
-      $id = $row['requestor_id'];
+      $id = $row['user_id'];
       $fname = $row['first_name'];
       $lname = $row['last_name'];
       $email = $row['email_address'];
@@ -71,7 +71,7 @@
         session_start();
         $_SESSION['userid'] = $user;
         $_SESSION['password'] = $pass;
-        $_SESSION['requestor_id'] = $id;
+        $_SESSION['user_id'] = $id;
         $_SESSION['user_type'] = $user_type;
         $_SESSION['first_name'] = $fname;
         $_SESSION['last_name'] = $lname;
@@ -81,7 +81,7 @@
           <?php
             $db = mysqli_connect("localhost", "root", "", "eei_db");
             $usersession = $_SESSION['userid'];
-            $islogin = "UPDATE requestor_t SET is_firstlogin = true WHERE userid = '$usersession'";
+            $islogin = "UPDATE user_t SET is_firstlogin = true WHERE userid = '$usersession'";
             if (!mysqli_query($db, $islogin))
             {
               die('Error' . mysqli_error($db));

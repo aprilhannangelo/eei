@@ -1,10 +1,13 @@
 $(document).ready(function(){
 
+
   $('.modal').modal();
   //hide forms on load
   $(".accesst").hide();
   $(".requestort").hide();
   $(".servicet").hide();
+
+  // $("#activity-log").hide();
 
   //live searching for user access request form
   $('.search-box input[type="text"]').on("keyup input", function(){
@@ -20,6 +23,43 @@ $(document).ready(function(){
           resultDropdown.empty();
       }
   });
+
+  $('.btn-edit').click(function () {
+    var currentTD = $(this).parents('tr').find('td');
+    if ($(this).html() == 'Edit') {
+        currentTD = $(this).parents('tr').find('td');
+        $.each(currentTD, function () {
+            $(this).prop('contenteditable', true)
+        });
+    } else {
+       $.each(currentTD, function () {
+            $(this).prop('contenteditable', false)
+        });
+    }
+    $(this).html($(this).html() == 'Edit' ? 'Save' : 'Edit')
+});
+
+
+$("#save-edits").submit(function(e) {
+  e.preventDefault();
+  $.ajax({
+    url: 'php_processes/admin-edits.php',
+    type: 'POST',
+    data: $(this).serialize(),
+    success: function(data)
+     {
+       swal({
+          title: "Ticket Submitted!",
+          text: "Your ticket number is: " +ticketNo,
+          type: "success",
+          icon: "success"
+      }).then(function(){
+        window.location="../eei/admin-settings.php";
+      });
+     }
+    })
+ });
+
 
   // Set search input value on click of result item
   $(document).on("click", ".result p", function(){
@@ -170,6 +210,8 @@ $(document).ready(function(){
  } );
 
 
+
+
  $("#properties").submit(function(e) {
    e.preventDefault();
    $.ajax({
@@ -241,6 +283,7 @@ $(document).ready(function(){
  });
 
  $("#check").submit(function(e) {
+   if(confirm("Are you sure you want to check this ticket?")){
    e.preventDefault();
    $.ajax({
      url: 'php_processes/check-process.php',
@@ -249,14 +292,39 @@ $(document).ready(function(){
      success: function()
       {
           swal("Ticket Checked", " ", "success").then(function(){
+            location.reload();
             $(".approve-reject").hide();
+
           });
       }
      })
+   }
+ });
+
+
+ $("#cancel").submit(function(e) {
+   if(confirm("Are you sure you want to cancel this ticket?")){
+   e.preventDefault();
+   $.ajax({
+     url: 'php_processes/cancel-process.php',
+     type: 'POST',
+     data: $(this).serialize(),
+     success: function()
+      {
+          swal("Ticket Cancelled", " ", "success").then(function(){
+            $(".modal-trigger").hide();
+
+            location.reload();
+
+          });
+      }
+     })
+   }
  });
 
 
  $("#approve").submit(function(e) {
+   if(confirm("Are you sure you want to approve this ticket?")){
    e.preventDefault();
    $.ajax({
      url: 'php_processes/approve-process.php',
@@ -265,13 +333,16 @@ $(document).ready(function(){
      success: function()
       {
           swal("Ticket Approved", " ", "success").then(function(){
+            location.reload();
             $(".approve-reject").hide();
           });
       }
      })
+   }
  });
 
  $("#reject").submit(function(e) {
+   if(confirm("Are you sure you want to reject this ticket?")){
    e.preventDefault();
    $.ajax({
      url: 'php_processes/reject-process.php',
@@ -280,13 +351,13 @@ $(document).ready(function(){
      success: function()
       {
           swal("Ticket Rejected", " ", "success").then(function(){
+            location.reload();
             $(".approve-reject").hide();
           });
       }
      })
+   }
  });
-
-
 
 
  $("#assignee").submit(function(e) {
@@ -313,6 +384,10 @@ $(document).ready(function(){
  $( "#reassign-button" ).click(function() {
    $( "#reassign" ).toggle( "slow" );
  });
+
+  $( "#activity-log" ).click(function() {
+    $( ".comment_input" ).toggle( "slow" );
+  });
 
  $('.edit-button').click(function () {
    for (i = 0; i < 5; i++) {

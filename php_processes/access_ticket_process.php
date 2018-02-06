@@ -14,7 +14,7 @@ $approver = mysqli_real_escape_string($db, $_POST['approver']);
 $checker = mysqli_real_escape_string($db, $_POST['checker']);
 
 
-$query1 = "INSERT INTO ticket_t (ticket_id, ticket_title, ticket_type, date_prepared, ticket_status, requestor_id) VALUES(DEFAULT, '$request_title', 'User Access', CURDATE(), DEFAULT, '{$_SESSION['requestor_id']}')";
+$query1 = "INSERT INTO ticket_t (ticket_id, ticket_title, ticket_type, date_prepared, ticket_status, user_id) VALUES(DEFAULT, '$request_title', 'User Access', CURDATE(), '1', '{$_SESSION['user_id']}')";
 
 if (!mysqli_query($db, $query1))
 {
@@ -30,17 +30,17 @@ if (!mysqli_query($db, $query2))
   die('Error' . mysqli_error($db));
 }
 
-$query5= "SELECT requestor_id from requestor_t WHERE CONCAT(first_name,' ',last_name)='$approver'";
+$query5= "SELECT user_id from user_t WHERE CONCAT(first_name,' ',last_name)='$approver'";
 $result2=mysqli_query($db, $query5);
 $row2 = mysqli_fetch_array($result2,MYSQLI_ASSOC);
-$approverID= $row2['requestor_id'];
+$approverID= $row2['user_id'];
 
-$query6= "SELECT requestor_id from requestor_t WHERE CONCAT(first_name,' ',last_name)='$checker'";
+$query6= "SELECT user_id from user_t WHERE CONCAT(first_name,' ',last_name)='$checker'";
 $result3=mysqli_query($db, $query6);
 $row3= mysqli_fetch_array($result3,MYSQLI_ASSOC);
-$checkerID= $row3['requestor_id'];
+$checkerID= $row3['user_id'];
 
-$query3 = "INSERT INTO user_access_ticket_t (ticket_id, ticket_number, company, dept_proj, rc_no, name, access_requested,  approver, checker) VALUES('$latest_id', (SELECT ticket_number from ticket_t WHERE ticket_id = '$latest_id'), '$company', '$dp', '$rc', '$names', '$access_request', '$approverID', '$checkerID')";
+$query3 = "INSERT INTO user_access_ticket_t (ticket_id, company, dept_proj, rc_no, name, access_requested,  approver, checker) VALUES('$latest_id', '$company', '$dp', '$rc', '$names', '$access_request', '$approverID', '$checkerID')";
 
 if (!mysqli_query($db, $query3))
 {

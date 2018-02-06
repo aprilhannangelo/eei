@@ -149,12 +149,27 @@ header, main, footer {
       z-index: 99999;
     }
 
-    @media only screen and (max-width : 992px) {
-      header, main, footer {
-        padding-left: 0;
-        color: black;
-      }
-    }
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+    color: black;
+  }
+
+  div.comment_input_mobile, div.comment_input{
+    display: none;
+  }
+
+  .row.actions {
+    margin-top: 15px;
+    margin-bottom: -15px;
+  }
+
+  div#activity-log{
+   display: inline-flex;
+   float: right;
+  }
+}
+
 
     #left-sidebar-nav {
         position: fixed;
@@ -395,6 +410,7 @@ i#add-ticket{
   margin-right: -10px;
   font-size: 20px;
 }
+
 div.material-table {
   padding: 0 40px 0 0;
   position: absolute;
@@ -405,6 +421,7 @@ div.material-table {
 div.material-table .hiddensearch {
   padding: 0 14px 0 24px;
   border-bottom: solid 1px #DDDDDD;
+  border-top: solid 1px #DDDDDD;
   display: none;
 }
 
@@ -430,9 +447,9 @@ div.material-table .table-header {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  display: flex;
+  display: inline;
   -webkit-display: flex;
-  border-bottom: solid 1px #DDDDDD;
+  /* border-bottom: solid 1px #DDDDDD; */
 }
 
 div.material-table .table-header .actions {
@@ -545,12 +562,24 @@ div.material-table .table-footer select {
 }
 
 div.material-table .table-title {
-  font-size: 28px;
+  font-size: 24px;
   color: #000;
 }
 
+span.table-title{
+  font-size: 32px;
+}
+
+div#card-header{
+  margin-bottom: 10px;
+    float: right;
+}
+
+div.table-header{
+  margin-bottom: 15px;
+}
 div.material-table table tr td {
-  /* padding: 0 0 0 56px; */
+  padding: 0 0 0 26px;
   height: 48px;
   font-size: 13px;
   color: rgba(0, 0, 0, 0.87);
@@ -583,7 +612,7 @@ div.material-table table th {
   white-space: nowrap;
   padding: 0;
   height: 56px;
-  /* padding-left: 56px; */
+  padding-left: 26px;
   vertical-align: middle;
   outline: none !important;
 }
@@ -627,16 +656,36 @@ div.material-table table tbody tr:hover {
   background-color: #EEE;
 }
 
-div.material-table table th:first-child,
-div.material-table table td:first-child {
+/* div.material-table#tickets table th:first-child,
+div.material-table#tickets table td:first-child {
   padding: 0 0 0 24px;
-  width: 75px;
+  width: 85px;
 }
 
-div.material-table table th:last-child,
-div.material-table table td:last-child {
+div.material-table#tickets table th:last-child,
+div.material-table#tickets table td:last-child {
   padding: 0 14px 0 0;
 }
+ */
+
+/* div.material-table#tickets table th:first-child, div.material-table table td:first-child{
+  width: 7%;
+} */
+/*div.material-table#tickets table th:nth-child(2), div.material-table table td:nth-child(2){
+  width: 14%;
+}
+
+div.material-table#tickets table th:nth-child(3), div.material-table table td:nth-child(3){
+  width: 15%;
+}
+
+div.material-table#tickets table th:nth-child(4), div.material-table table td:nth-child(4){
+  width: 17%;
+}
+
+div.material-table#tickets table th:nth-child(5), div.material-table table td:nth-child(5){
+  width: 18%;
+} */
 
 
 
@@ -655,19 +704,26 @@ div#request-form {
 div#request-form-row {
     margin-bottom: 0px;
     margin-top: 15px;
+    padding: 0 10px 0 10px;
 }
 
 div#request-form-row2 {
     margin-bottom: 0px;
     margin-top: 30px;
+    padding: 0 10px 0 10px;
+
 }
 div#request-form-row3 {
     margin-bottom: 25px;
-    margin-top: 45px;
+    margin-top: 16px;
+    padding: 0 10px 0 10px;
+
 }
 div#request-form-row4 {
     margin-bottom: 15px;
     margin-top: 10px;
+    padding: 0 10px 0 10px;
+
 }
 
 input#request-form{
@@ -754,7 +810,7 @@ padding-right: 50px;
 
  @media only screen and (min-width: 1000px){
    .main-container{
-     padding: 50px 0 0 300px;
+     padding: 70px 0 0 300px;
      /* margin-right: 300px; */
    }
  }
@@ -978,13 +1034,7 @@ p#details{
 
 }
 
-div#right-card{
-  margin-left: 20px;
-}
 
-div#right-card2{
-  margin-left: 20px;
-}
 
 td.first {
     width: 35%;
@@ -995,7 +1045,7 @@ td.first {
 td.deet{
   font-weight: 400;
 }
-
+/*
 div.material-table#manage table th:first-child, div.material-table table td:first-child{
   width: 12%;
 }
@@ -1007,25 +1057,7 @@ div.material-table#manage table th:nth-child(2), div.material-table table td:nth
 div.material-table#manage table th:nth-child(3), div.material-table table td:nth-child(3){
   width: 15%;
 }
-
-div.material-table table th:first-child, div.material-table table td:first-child{
-  width: 10%;
-}
-div.material-table table th:nth-child(2), div.material-table table td:nth-child(2){
-  width: 10%;
-}
-
-div.material-table table th:nth-child(3), div.material-table table td:nth-child(3){
-  width: 14%;
-}
-
-div.material-table table th:nth-child(4), div.material-table table td:nth-child(4){
-  width: 17%;
-}
-
-div.material-table table th:nth-child(5), div.material-table table td:nth-child(5){
-  width: 18%;
-}
+*/
 
 
 #ticket-details td {
@@ -1128,6 +1160,10 @@ td.name-in-ticket{
   a.button-collapse2 {
     display: none;
   }
+  div#activity-log{
+  display: none;
+  }
+
 }
 
 a.button-collapse2 {
@@ -1145,9 +1181,9 @@ a.button-collapse2 i {
 }
 
 
-div#db-panel{
+/* div#db-panel{
   width: 195px;
-}
+} */
 
 span#db-panel-label{
   text-align: center;
@@ -1244,15 +1280,23 @@ div#tagent-info {
     border-color: #4b75ff;
     display: inline-block;
     cursor: pointer;
-    padding: 8px 15px 8px 15px;
+    padding: 5px 15px 5px 20px;
     border: 1px solid;
     color: #4b75ff;
-    border-radius: 3px;
+    border-radius: 2px;
     text-transform: none;
     font-size: 12px;
   }
 
-  .btn-reassign, .btn-reassign:focus {
+  i#sort{
+    padding: 0px;
+    line-height: 0;
+    vertical-align: super;
+    color: #a9abae;
+    display: -webkit-inline-box;
+}
+
+  .btn-reassign, .btn-reassign:focus{
       box-shadow: none;
       font-weight: 500;
       float: right;
@@ -1281,11 +1325,11 @@ input#details-back {
     vertical-align: bottom;
   }
 
-form#check, form#approve{
+form#check, form#approve, form#cancel{
   display: inline;
 }
 
-input#check, input#approve, input#reject {
+input#check, input#approve, input#reject, input#cancel, .btn-activitylog, .btn-activitylog:focus, a#sla {
   /* padding: 8px 15px 8px 15px;
   background-color: #21d260;
   border-color: #21d260;
@@ -1319,24 +1363,25 @@ div#detail-header{
 } */
 
 div#ticket-properties {
-    /* height: 50vh; */
     padding: 20px 20px 0px 30px;
     border-radius: 4px;
     background-color: #fff4d6;
-    margin-left: 20px;
   }
 
-div.tprop, input.tprop{
-  display: inline-flex;
-  float: right;
-  background-color: #4b75ff;
-  color: white;
-  padding: 4px;
-  border: 1px solid #3757bf;
-  padding-left: 12px;
-  padding-right: 12px;
-  font-size: 14px;
-  border-radius: 4px;
+div.tprop{
+float: right;
+}
+
+input#submit{
+display: inline-flex;
+background-color: #4b75ff;
+color: white;
+padding: 7px;
+border: 1px solid #3757bf;
+padding-left: 12px;
+padding-right: 12px;
+font-size: 12px;
+border-radius: 4px;
 }
 
 div.tprop-header{
@@ -1361,8 +1406,6 @@ input#activity_log {
 }
 .comment_input{
     padding-top: 35px;
-    /* background-color: #fbfbfb; */
-    padding-left: 15px;
     padding-right: 15px;
     border-radius: 5px;
     /* border: 1px solid lightgrey; */
@@ -1414,4 +1457,67 @@ input#confirmnewpass, label#confirmnewpass{
 .approve-reject{
     display: inline-flex;
     float: right;
+}
+
+
+	@media only screen and (max-width: 700px) {
+		.col-datecreated{
+			display: none;
+		}
+    .col-remarks{
+      display: none;
+    }
+
+    div.material-table{
+      left:0;
+      padding: 0;
+    }
+	}
+
+
+div.header{
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+div.actions{
+  padding: 15px 24px 20px 20px;
+}
+
+div.detail-actions{
+  display: inline;
+}
+
+
+.btn-search, .btn-search:focus {
+    box-shadow: none;
+    background-color: white;
+    border-color: #4b75ff;
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px 25px 5px 25px;
+    border: 1px solid;
+    color: #4b75ff;
+    border-radius: 2px;
+    text-transform: none;
+    font-size: 12px;
+  }
+span.badge.main-count {
+      background-color: #2c2f34;
+      color: white;
+      padding: 0 20px;
+      /* margin-right: 0; */
+      border-radius: 10px;
+      min-width: 2rem;
+      min-height: 2rem;
+      align-items: center;
+      padding-top: 3px;
+}
+div.count{
+  display: inline;
+  float: right;
+  margin-right: 20px;
+  padding-right: 10px;
+  margin-top: 5px;
 }

@@ -7581,9 +7581,9 @@ input[type=range]:focus::-ms-fill-upper {
     -webkit-transform: translateX(-105%);
             transform: translateX(-105%);
   }
-  .body-header{
+  /* .body-header{
     margin-top: 50px;
-  }
+  } */
   a.button-collapse{
     position: absolute;
     margin-top: -5.0rem;

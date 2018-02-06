@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!isset($_SESSION['requestor_id'])){
+  if(!isset($_SESSION['user_id'])){
     header('location: index.php');
   }
 ?>
@@ -51,7 +51,7 @@
               </tr>
               <tr>
                 <td>Requestor ID</td>
-                <td><?php echo $_SESSION['requestor_id']?></td>
+                <td><?php echo $_SESSION['user_id']?></td>
               </tr>
             </tbody>
           </table>

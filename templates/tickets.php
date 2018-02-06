@@ -22,7 +22,7 @@
       <?php
       $db = mysqli_connect("localhost", "root", "", "eei_db");
       //Query for the way the table is shown in hr-index.php
-      $query = "SELECT * FROM ticket_t LEFT JOIN service_ticket_t USING (ticket_id, ticket_number) LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number) WHERE ticket_t.ticket_status = 'In Progress' AND ticket_t.requestor_id = '".$_SESSION['requestor_id']."'";
+      $query = "SELECT * FROM ticket_t LEFT JOIN service_ticket_t USING (ticket_id) LEFT JOIN user_access_ticket_t USING (ticket_id) WHERE ticket_t.ticket_status = 'In Progress' AND ticket_t.user_id = '".$_SESSION['user_id']."'";
 
 
       $result = mysqli_query($db,$query);?>
@@ -83,7 +83,7 @@
       <?php
       $db = mysqli_connect("localhost", "root", "", "eei_db");
       //Query for the way the table is shown in hr-index.php
-      $query = "SELECT * FROM ticket_t LEFT JOIN service_ticket_t USING (ticket_id, ticket_number) LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number) WHERE ticket_t.ticket_status = 'Resolved' AND ticket_t.requestor_id = '".$_SESSION['requestor_id']."'";
+      $query = "SELECT * FROM ticket_t LEFT JOIN service_ticket_t USING (ticket_id) LEFT JOIN user_access_ticket_t USING (ticket_id) WHERE ticket_t.ticket_status = 'Resolved' AND ticket_t.user_id = '".$_SESSION['user_id']."'";
 
 
       $result = mysqli_query($db,$query);?>
@@ -143,7 +143,7 @@
       <?php
       $db = mysqli_connect("localhost", "root", "", "eei_db");
       //Query for the way the table is shown in hr-index.php
-      $query = "SELECT * FROM ticket_t LEFT JOIN service_ticket_t USING (ticket_id, ticket_number) LEFT JOIN user_access_ticket_t USING (ticket_id, ticket_number) WHERE ticket_t.ticket_status = 'Pending' AND ticket_t.requestor_id = '".$_SESSION['requestor_id']."'";
+      $query = "SELECT * FROM ticket_t LEFT JOIN service_ticket_t USING (ticket_id) LEFT JOIN user_access_ticket_t USING (ticket_id) WHERE ticket_t.ticket_status = 'Pending' AND ticket_t.user_id = '".$_SESSION['user_id']."'";
 
 
       $result = mysqli_query($db,$query);?>

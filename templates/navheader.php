@@ -20,6 +20,9 @@
           <!-- Dropdown Structure -->
           <ul id="dropdown" class="dropdown-content collection">
               <li><a href="myprofile.php">My Profile</a></li>
+              <?php if($_SESSION['user_type'] == 'Administrator'){ ?>
+                <li><a href="admin-settings.php">Admin Settings</a></li>
+              <?php } ?>
               <li><a href="php_processes/logout.php">Log out</a></li>
           </ul>
        </ul>

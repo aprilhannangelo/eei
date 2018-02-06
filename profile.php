@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!isset($_SESSION['requestor_id'])){
+  if(!isset($_SESSION['user_id'])){
     header('location: index.php');
   }
 ?>
@@ -28,7 +28,7 @@
               $db = mysqli_connect("localhost", "root", "", "eei_db");
               $id = $_GET["id"];
 
-              $query1 = "SELECT * from requestor_t where requestor_id = $id";
+              $query1 = "SELECT * from user_t where user_id = $id";
 
               if (!mysqli_query($db, $query1))
               {
